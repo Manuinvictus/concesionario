@@ -19,7 +19,6 @@ public class Spell {
 	private int level;
 	private int damage;
 	private boolean islethal;
-	private int numero;
 	
 	//Getters
 	public long getIdspell() {

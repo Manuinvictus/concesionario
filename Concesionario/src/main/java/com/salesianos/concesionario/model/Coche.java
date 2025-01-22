@@ -65,4 +65,8 @@ public class Coche {
     public void setIdvendedor(int idvendedor) {
         this.idvendedor = idvendedor;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/Sheyla

@@ -13,12 +13,13 @@ import com.salesianos.concesionario.model.Vendedor;
 public interface VendedoresRepository extends JpaRepository<Vendedor, Long>{
 
 	@Query(value = "SELECT * "
-				 + " FROM spells sp "
-				 + " WHERE sp.idspell = :id "
-				 + " ORDER BY sp.spellname ASC "
+				 + " FROM Vendedor v "
+				 + " WHERE v.idvendedor = :id "
+				 + " ORDER BY v.nombre ASC "
 		 , nativeQuery = true)
 	List<Vendedor> findByID(@Param("id") long id);
 
+<<<<<<< HEAD
 	@Query("SELECT sp "
 		 + " FROM Spell sp "
 		 + " WHERE sp.damage > :dmg "
@@ -31,4 +32,6 @@ public interface VendedoresRepository extends JpaRepository<Vendedor, Long>{
 			 	 + " ORDER BY sp.spellname ASC "
 		 , nativeQuery = true)
 	List<Vendedor> findByLevel(int lvl);
+=======
+>>>>>>> origin/Sheyla
 }

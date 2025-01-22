@@ -8,38 +8,38 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.salesianos.concesionario.model.CochePorMarca;
-import com.salesianos.concesionario.model.Marcas;
+import com.salesianos.concesionario.model.Marca;
 
 @Repository
-public interface MarcasRepository extends JpaRepository<Marcas, Long>{
+public interface MarcasRepository extends JpaRepository<Marca, Long>{
 	
 	// Esta query no debe solo mostrar los datos, también debe cargarlos en nuestro objeto AlumConHech,
 	// mediante el builder de este.
-	@Query("SELECT new AlumConHech(st.idstudent, st.fullname, st.email, st.matriculationdate,"
-		 + " st.gender, sp.spellname, sp.type, sp.level, sp.islethal) "
-		 + " FROM Student st, Spell sp "
-		 + " WHERE st.spellknown=sp.idspell "
-		 + " AND UPPER(sp.spellname) LIKE ?1% "
-		 + " ORDER BY sp.spellname, st.fullname ASC ")
-	List<CochePorMarca> alumnosPorHechizo(String nomHechizo);
+	@Query("SELECT new CochePorMarca(c.idcoche, c.modelo, m.idmarca) "
+		 + " FROM Coche c, Marca m "
+		 + " WHERE c.idmarca=m.idmarca "
+		 + " AND UPPER(m.idmarca) LIKE ?1% "
+		 + " ORDER BY m.idmarca, c.modelo ASC ")
+	List<CochePorMarca> cochesPorMarca(String modelo);
 
 	@Query(value = "SELECT * "
-				 + " FROM spells sp "
-				 + " WHERE sp.idspell = :id "
-				 + " ORDER BY sp.spellname ASC "
+				 + " FROM Marca m "
+				 + " WHERE m.idmarca = :id "
+				 + " ORDER BY m.nombremarca ASC "
 		 , nativeQuery = true)
-	List<Marcas> findByID(@Param("id") long id);
-
-	@Query("SELECT sp "
-		 + " FROM Spell sp "
-		 + " WHERE sp.damage > :dmg "
-		 + " ORDER BY sp.spellname ASC ")
-	List<Marcas> findByDmg(@Param("dmg") int dmg);
+	List<Marca> findByIDMarca(@Param("id") long idmarca);
 	
 	@Query(value = "SELECT * "
-			 	 + " FROM spells sp "
-			 	 + " WHERE sp.level >= ?1 "
-			 	 + " ORDER BY sp.spellname ASC "
-		 , nativeQuery = true)
-	List<Marcas> findByLevel(int lvl);
+			 + " FROM Marca m "
+			 + " WHERE m.nombremarca = :nombremarca "
+			 + " ORDER BY m.nombremarca ASC "
+	 , nativeQuery = true)
+List<Marca> findByNombreMarca(@Param("nombremarca") long nombremarca);
+
+	@Query("SELECT m "
+		 + " FROM Marca m "
+		 + " WHERE m.patrimonio > :patrimonio "
+		 + " ORDER BY m.nombremarca ASC ")
+	List<Marca> findByPatrimonio(@Param("patrimonio") int patrimonio);
+	
 }

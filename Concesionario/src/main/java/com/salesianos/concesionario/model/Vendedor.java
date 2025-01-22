@@ -1,32 +1,28 @@
 package com.salesianos.concesionario.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.util.Date;
 
 @Entity
-public class Vendedores {
+@Table(name = "vendedores")
+public class Vendedor {
 
     @Id
-    private int idvendedor;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idvendedor;
     private String nombre;
     private String apellidos;
     private Date fechanacimiento;
     private String dni;
     private String cargo;
 
-    // Constructor
-    public Vendedores(int idvendedor, String nombre, String apellidos, Date fechanacimiento, String dni, String cargo) {
-        this.idvendedor = idvendedor;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.fechanacimiento = fechanacimiento;
-        this.dni = dni;
-        this.cargo = cargo;
-    }
-
     // Getters
-    public int getIdvendedor() {
+    public long getIdvendedor() {
         return idvendedor;
     }
     public String getNombre() {
@@ -46,7 +42,7 @@ public class Vendedores {
     }
 
     // Setters
-    public void setIdvendedor(int idvendedor) {
+    public void setIdvendedor(long idvendedor) {
         this.idvendedor = idvendedor;
     }
     public void setNombre(String nombre) {

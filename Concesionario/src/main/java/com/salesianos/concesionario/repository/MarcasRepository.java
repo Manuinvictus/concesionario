@@ -8,10 +8,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.salesianos.concesionario.model.CochePorMarca;
-import com.salesianos.concesionario.model.Marcas;
+import com.salesianos.concesionario.model.Marca;
 
 @Repository
-public interface MarcasRepository extends JpaRepository<Marcas, Long>{
+public interface MarcasRepository extends JpaRepository<Marca, Long>{
 	
 	// Esta query no debe solo mostrar los datos, también debe cargarlos en nuestro objeto AlumConHech,
 	// mediante el builder de este.
@@ -28,18 +28,18 @@ public interface MarcasRepository extends JpaRepository<Marcas, Long>{
 				 + " WHERE sp.idspell = :id "
 				 + " ORDER BY sp.spellname ASC "
 		 , nativeQuery = true)
-	List<Marcas> findByID(@Param("id") long id);
+	List<Marca> findByID(@Param("id") long id);
 
 	@Query("SELECT sp "
 		 + " FROM Spell sp "
 		 + " WHERE sp.damage > :dmg "
 		 + " ORDER BY sp.spellname ASC ")
-	List<Marcas> findByDmg(@Param("dmg") int dmg);
+	List<Marca> findByDmg(@Param("dmg") int dmg);
 	
 	@Query(value = "SELECT * "
 			 	 + " FROM spells sp "
 			 	 + " WHERE sp.level >= ?1 "
 			 	 + " ORDER BY sp.spellname ASC "
 		 , nativeQuery = true)
-	List<Marcas> findByLevel(int lvl);
+	List<Marca> findByLevel(int lvl);
 }

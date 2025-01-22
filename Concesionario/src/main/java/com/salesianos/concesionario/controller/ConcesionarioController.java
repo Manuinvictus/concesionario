@@ -11,115 +11,168 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.salesianos.spring.model.Vendedores;
-import com.salesianos.spring.model.Marcas;
-import com.salesianos.spring.model.Coches;
-import com.salesianos.spring.repository.MarcasRepository;
-import com.salesianos.spring.repository.VendedoresRepository;
-import com.salesianos.spring.repository.CochesRepository;
+import com.salesianos.concesionario.model.Vendedor;
+import com.salesianos.concesionario.model.Marca;
+import com.salesianos.concesionario.model.Coche;
+import com.salesianos.concesionario.repository.MarcasRepository;
+import com.salesianos.concesionario.repository.VendedoresRepository;
+import com.salesianos.concesionario.repository.CochesRepository;
 
 //Falta ser refactorizado
 @Controller
 public class ConcesionarioController {
  
     @Autowired
-    private VendedoresRepository hr;
+    private CochesRepository cr;
 
     @Autowired
-    private MarcasRepository sr;
+    private MarcasRepository mr;
+ 
+    @Autowired
+    private VendedoresRepository vr;
  
     @GetMapping("/")
     public String listaUsuarios(Model model){
-    	model.addAttribute("users", hr.findAll());
-        model.addAttribute("spells", sr.findAll());
+    	model.addAttribute("coches", cr.findAll());
+        model.addAttribute("marcas", mr.findAll());
+        model.addAttribute("vendedores", vr.findAll());
         model.addAttribute("type", "base");
         return "index";
     }
     
     @GetMapping("/asc")
     public String listaUsuariosAsc(Model model){
-    	model.addAttribute("users", hr.findByOrderByFullnameAsc());
-        model.addAttribute("spells", sr.findAll());
+    	model.addAttribute("coches", cr.findByOrderByFullnameAsc());
+        model.addAttribute("marcas", mr.findAll());
+        model.addAttribute("vendedores", vr.findAll());
         model.addAttribute("type", "asc");
         return "index";
     }
     
     @GetMapping("/desc")
     public String listaUsuariosDesc(Model model){
-    	model.addAttribute("users", hr.findByOrderByFullnameDesc());
-        model.addAttribute("spells", sr.findAll());
+    	model.addAttribute("users", cr.findByOrderByFullnameDesc());
+        model.addAttribute("marcas", mr.findAll());
+        model.addAttribute("vendedores", vr.findAll());
         model.addAttribute("type", "desc");
         return "index";
     }
     
-    @GetMapping("/spells")
-    public String listaHechizos(Model model){
-    	model.addAttribute("spells", sr.findAll());
-        return "hechizos";
+    @GetMapping("/marcas")
+    public String listaMarcas(Model model){
+    	model.addAttribute("marcas", mr.findAll());
+        return "marcas";
     }
     
-    @GetMapping("/verHechizo/{id}")
+    @GetMapping("/verMarca/{id}")
+    public String verMarca(@PathVariable long id, Model model){
+    	Optional<Marca> m = mr.findById(id);
+    	model.addAttribute("marca", m.get());
+        return "verMarca";
+    }
+    
+    @GetMapping("/vendedores")
+    public String listaVendedores(Model model){
+    	model.addAttribute("vendedores", vr.findAll());
+        return "vendedores";
+    }
+    
+    @GetMapping("/verVendedor/{id}")
     public String verHechizo(@PathVariable long id, Model model){
-    	Optional<Spell> sp = sr.findById(id);
-    	model.addAttribute("spell", sp.get());
-        return "verHechizo";
+    	Optional<Vendedor> v = vr.findById(id);
+    	model.addAttribute("spell", v.get());
+        return "verVendedor";
     }
     
     @GetMapping("/buscar")
-    public String buscarAlPorHe(String nomHechizo, Model model) {
-    	model.addAttribute("alPorHe", sr.alumnosPorHechizo(nomHechizo.toUpperCase()));
-		return "alumnosPorHechizo";
+    public String buscarCoPorMa(String nomMarca, Model model) {
+    	model.addAttribute("coPorMa", mr.cochesPorMarca(nomMarca.toUpperCase()));
+		return "cochesPorMarca";
     }
  
     @GetMapping("/add")
     public String nuevo(Model model){
-    	model.addAttribute("user", new Student());
-    	model.addAttribute("spells", sr.findAll());
+    	model.addAttribute("coche", new Coche());
+    	model.addAttribute("marcas", mr.findAll());
+    	model.addAttribute("vendedores", vr.findAll());
         return "nuevo";
     }
     
-    @GetMapping("/addSpell")
-    public String nuevoHechizo(Model model){
-    	model.addAttribute("spell", new Spell());
-        return "nuevoHechizo";
+    @GetMapping("/addMarca")
+    public String nuevaMarca(Model model){
+    	model.addAttribute("marca", new Marca());
+        return "nuevaMarca";
+    }
+    
+    @GetMapping("/addVendedor")
+    public String nuevoVendedor(Model model){
+    	model.addAttribute("vendedor", new Vendedor());
+        return "nuevoVendedor";
     }
     
     @PostMapping("/crear")
-    public String crear(Student student,
+    public String crear(Coche coche,
             BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             return "redirect:/add";
         }else{
-        	hr.save(student);
-        	model.addAttribute("users", hr.findAll());
-            model.addAttribute("spells", sr.findAll());
+        	cr.save(coche);
+        	model.addAttribute("coches", cr.findAll());
+            model.addAttribute("marcas", mr.findAll());
+            model.addAttribute("vendedores", vr.findAll());
             return "redirect:/";
         }
     }
     
-    @PostMapping("/crearHechizo")
-    public String crearHechizo(Spell spell,
+    @PostMapping("/crearMarca")
+    public String crearMarca(Marca marca,
             BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-            return "redirect:/addSpell";
+            return "redirect:/addMarca";
         }else{
-        	sr.save(spell);
-        	model.addAttribute("spells", sr.findAll());
-            return "redirect:/spells";
+        	mr.save(marca);
+        	model.addAttribute("marcas", mr.findAll());
+            return "redirect:/marcas";
+        }
+    }
+    
+    @PostMapping("/crearVendedor")
+    public String crearVendedor(Vendedor vendedor,
+            BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            return "redirect:/addVendedor";
+        }else{
+        	vr.save(vendedor);
+        	model.addAttribute("vendedores", vr.findAll());
+            return "redirect:/vendedores";
         }
     }
     
     @GetMapping("/borrar/{id}")
     public String borrar(@PathVariable long id, Model model){
-    	Optional<Student> bl = hr.findById(id);
-    	hr.delete(bl.get());
-        model.addAttribute("users", hr.findAll());
-        model.addAttribute("spells", sr.findAll());
+    	Optional<Coche> c = cr.findById(id);
+    	cr.delete(c.get());
+        model.addAttribute("coches", cr.findAll());
+        model.addAttribute("marcas", mr.findAll());
+        model.addAttribute("vendedores", vr.findAll());
         return "redirect:/";
     }
     
-    @GetMapping("/borrarHechizo/{id}")
-    public String borrarHechizo(@PathVariable long id, Model model){
+    @GetMapping("/borrarMarca/{id}")
+    public String borrarMarca(@PathVariable long id, Model model){
+    	List<Marca> sl = mr.findAll();
+    	for (Marca st : sl) {
+    		if (st.getSpellknown() == id) st.setSpellknown(0);
+    		hr.save(st);
+    	}
+    	Optional<Spell> sp = sr.findById(id);
+    	sr.delete(sp.get());
+        model.addAttribute("spells", sr.findAll());
+        return "redirect:/spells";
+    }
+    
+    @GetMapping("/borrarVendedor/{id}")
+    public String borrarVendedor(@PathVariable long id, Model model){
     	List<Student> sl = hr.findAll();
     	for (Student st : sl) {
     		if (st.getSpellknown() == id) st.setSpellknown(0);

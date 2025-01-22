@@ -9,18 +9,18 @@ import java.util.Date;
 
 @Entity
 @Table(name = "marcas")
-public class Marcas {
+public class Marca {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idmarca;
+    private long idmarca;
     private String nombremarca;
     private Date fundacion;
     private int patrimonio;
     private String moneda;
 
     // Getters
-    public int getIdmarca() {
+    public long getIdmarca() {
         return idmarca;
     }
     public String getNombremarca() {
@@ -37,7 +37,7 @@ public class Marcas {
     }
 
     // Setters
-    public void setIdmarca(int idmarca) {
+    public void setIdmarca(long idmarca) {
         this.idmarca = idmarca;
     }
     public void setNombremarca(String nombremarca) {

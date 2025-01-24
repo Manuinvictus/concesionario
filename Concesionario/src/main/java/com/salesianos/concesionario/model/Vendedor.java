@@ -9,27 +9,22 @@ import jakarta.persistence.Table;
 import java.util.Date;
 
 @Entity
-<<<<<<< HEAD
 @Table(name = "vendedores")
 public class Vendedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-=======
-public class Vendedor {
-
-    @Id
->>>>>>> origin/Sheyla
     private long idvendedor;
     private String nombre;
     private String apellidos;
     private Date fechanacimiento;
     private String dni;
     private String cargo;
-
-<<<<<<< HEAD
-=======
-    // Constructor
+    
+    // Constructores
+    public Vendedor() {
+    }
+    
     public Vendedor(long idvendedor, String nombre, String apellidos, Date fechanacimiento, String dni, String cargo) {
         this.idvendedor = idvendedor;
         this.nombre = nombre;
@@ -39,7 +34,6 @@ public class Vendedor {
         this.cargo = cargo;
     }
 
->>>>>>> origin/Sheyla
     // Getters
     public long getIdvendedor() {
         return idvendedor;

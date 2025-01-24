@@ -13,25 +13,9 @@ import com.salesianos.concesionario.model.Vendedor;
 public interface VendedoresRepository extends JpaRepository<Vendedor, Long>{
 
 	@Query(value = "SELECT * "
-				 + " FROM Vendedor v "
+				 + " FROM vendedores v "
 				 + " WHERE v.idvendedor = :id "
 				 + " ORDER BY v.nombre ASC "
-		 , nativeQuery = true)
+				 , nativeQuery = true)
 	List<Vendedor> findByID(@Param("id") long id);
-
-<<<<<<< HEAD
-	@Query("SELECT sp "
-		 + " FROM Spell sp "
-		 + " WHERE sp.damage > :dmg "
-		 + " ORDER BY sp.spellname ASC ")
-	List<Vendedor> findByDmg(@Param("dmg") int dmg);
-	
-	@Query(value = "SELECT * "
-			 	 + " FROM spells sp "
-			 	 + " WHERE sp.level >= ?1 "
-			 	 + " ORDER BY sp.spellname ASC "
-		 , nativeQuery = true)
-	List<Vendedor> findByLevel(int lvl);
-=======
->>>>>>> origin/Sheyla
 }

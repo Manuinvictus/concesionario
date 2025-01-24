@@ -13,7 +13,7 @@
 		  <div class="container-fluid">
 		    <a class="navbar-brand text-light">
 		    	<i class="fa-solid fa-hat-wizard text-light"></i>
-		    	Hogwarts students manager
+		    		Concesionario Cochecito de San Fernando
 		    	<i class="fa-solid fa-wand-sparkles text-light"></i>
 	    	</a>
 		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,75 +22,78 @@
 		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 		        <li class="nav-item">
-		          <a class="nav-link text-light" href="#">Home</a>
+		          <a class="nav-link text-light" href="#">Inicio</a>
 		        </li>
-		        <li class="nav-item" th:if="${page == 'spells'}">
-		          <a class="nav-link active text-secondary" aria-current="page" href="/spells">Taught spells</a>
+		        <li class="nav-item" th:if="${page == 'marcas'}">
+		          <a class="nav-link active text-secondary" aria-current="page" href="/marcas">Marcas disponibles</a>
 		        </li>
-		        <li class="nav-item" th:unless="${page == 'spells'}">
-		          <a class="nav-link text-light" href="/spells">Taught spells</a>
+		        <li class="nav-item" th:if="${page != 'marcas'}">
+		          <a class="nav-link text-light" href="/marcas">Marcas disponibles</a>
 		        </li>
-		        <li class="nav-item" th:if="${page == 'spells'}">
-		          <a class="nav-link text-light" href="/">Students management</a>
+				<li class="nav-item" th:if="${page == 'vendedores'}">
+				  <a class="nav-link active text-secondary" aria-current="page" href="/vendedores">Gestión de vendedores</a>
+				</li>
+				<li class="nav-item" th:if="${page != 'vendedores'}">
+				  <a class="nav-link text-light" href="/vendedores">Gestión de vendedores</a>
+				</li>
+		        <li class="nav-item" th:if="${page == 'coches'}">
+		          <a class="nav-link active text-secondary" aria-current="page" href="/">Gestor de coches</a>
 		        </li>
-		        <li class="nav-item" th:unless="${page == 'spells'}">
-		          <a class="nav-link active text-secondary" aria-current="page" href="/">Students management</a>
-		        </li>
+				<li class="nav-item" th:if="${page != 'coches'}">
+				  <a class="nav-link text-light" href="/">Gestor de coches</a>
+				</li>
 		      </ul>
 		      <form class="d-flex" role="search" th:action="@{/buscar}">
-		        <input class="form-control me-2" type="search" name="nomHechizo" placeholder="Search" aria-label="Search">
-		        <button class="btn btn-outline-success" type="submit">Search</button>
+		        <input class="form-control me-2" type="search" name="nomMarca" placeholder="Buscar por marca" aria-label="Search">
+		        <button class="btn btn-outline-success" type="submit">Buscar</button>
 		      </form>
 		    </div>
 		  </div>
 		</nav>
     </div>
     
-    <div th:fragment="list (users, spells, type)" class="container-flex">
+    <div th:fragment="list (coches, marcas, vendedores)" class="container-flex">
         <div class="panel-heading">
-        	<h3>Lista de estudiantes de Hogwarts</h3>
+        	<h3>Lista de coches del concesionario</h3>
         </div>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>
-                    	Nombre 
+                    	Modelo coche
 	                    <a th:unless="${type == 'asc'}" href="/asc"><i class="fa-solid fa-arrow-down-a-z offset-5 text-dark"></i></a>
 	                    <a th:if="${type == 'asc'}" href="/desc"><i class="fa-solid fa-arrow-up-a-z offset-5 text-dark"></i></a>
                     </th>
-                    <th>DNI</th>
-                    <th>Email</th>
-                    <th>Muggle</th>
-                    <th>Fecha de Matriculación</th>
-                    <th>Fecha de Nacimiento</th>
-                    <th>Genero</th>
-                    <th>Conoce el hechizo</th>
+                    <th>Id marca</th>
+                    <th>Año de fabricación</th>
+                    <th>Precio</th>
+                    <th>Moneda</th>
+                    <th>Id vendedor</th>
                 </tr>
             </thead>
             <tbody>
-			    <tr th:each="user : ${users}">
-			        <td th:text="${user.idstudent}"></td>
-			        <td th:text="${user.fullname}"></td>
-			        <td th:text="${user.dni}"></td>
-			        <td th:text="${user.email}"></td>
-			        <td th:if="${user.ismuggle}">Si</td>
-			        <td th:unless="${user.ismuggle}">No</td>
-			        <td th:text="${user.matriculationdate}"></td>
-			        <td th:text="${user.birthdate}"></td>
-			        <td th:text="${user.gender}"></td>
-			        <td th:each="spell : ${spells}" th:if="${user.spellknown == spell.idspell}">
-			        	<a th:href="@{'/verHechizo/{id}'(id=${spell.idspell})}" th:text="${spell.spellname}" class="link-dark link-underline link-underline-opacity-0"></a>
+			    <tr th:each="coche : ${coches}">
+			        <td th:text="${coche.idcoche}"></td>
+			        <td th:text="${coche.modelo}"></td>
+					<td th:each="marcas : ${marcas}" th:if="${coche.idmarca == marcas.idmarca}">
+			        	<a th:href="@{'/verMarca/{id}'(id=${marcas.idmarca})}" th:text="${marcas.nombremarca}" class="link-dark link-underline link-underline-opacity-0"></a>
+			        </td>
+			        <td th:text="${coche.anyofabricacion}"></td>
+			        <td th:text="${coche.precio}"></td>
+			        <td th:if="${coche.moneda}"></td>
+			        <td th:each="vendedores : ${vendedores}" th:if="${coche.idvendedor == vendedores.idvendedor}">
+			        	<a th:href="@{'/verVendedor/{id}'(id=${vendedores.idvendedor})}" th:text="${vendedores.nombre}" class="link-dark link-underline link-underline-opacity-0"></a>
 			        </td>
 			        <td>
-					    <a th:href="@{'/editar/{id}'(id=${user.idstudent})}">
+					    <a th:href="@{'/editar/{id}'(id=${coche.idcoche})}">
 					        <span class="fa-stack">
 					            <i class="fa-solid fa-pen-to-square"></i>
 					        </span>
 					    </a>
 					</td>
 					<td>
-					    <a th:href="@{'/borrar/{id}'(id=${user.idstudent})}">
+					    <a th:href="@{'/borrar/{id}'(id=${coche.idcoche})}">
 					        <span class="fa-stack">
 					            <i class="fa-solid fa-trash"></i>
 					        </span>
@@ -99,56 +102,82 @@
 			    </tr>
 			</tbody>
         </table>
-        <a class="btn btn-success" href="/add">Añadir nuevo estudiante</a>
+        <a class="btn btn-success" href="/añadir">Añadir nuevo coche</a>
     </div>
     
-    <div th:fragment="spellList (spells)" class="container-flex">
-        <div class="panel-heading">
-        	<h3>Lista de estudiantes de Hogwarts</h3>
-        </div>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Tipo</th>
-                    <th>Nivel</th>
-                    <th>Daño</th>
-                    <th>Letal</th>
-                </tr>
-            </thead>
-            <tbody>
-			    <tr th:each="spell : ${spells}" th:unless="${spell.idspell == 0}">
-			        <td th:text="${spell.idspell}"></td>
-			        <td th:text="${spell.spellname}"></td>
-			        <td th:text="${spell.spelldescription}"></td>
-			        <td><div th:text="${spell.type}"></div></td>
-			        <td><div th:text="${spell.level}"></div></td>
-			        <td><div th:text="${spell.damage}"></div></td>
-			        <td th:if="${spell.islethal}">Si</td>
-			        <td th:unless="${spell.islethal}">No</td> 
-			        <td>
-					    <a th:href="@{'/editarHechizo/{id}'(id=${spell.idspell})}">
-					        <span class="fa-stack">
-					            <i class="fa-solid fa-pen-to-square"></i>
-					        </span>
-					    </a>
-					</td>
-					<td>
-					    <a th:href="@{'/borrarHechizo/{id}'(id=${spell.idspell})}">
-					        <span class="fa-stack">
-					            <i class="fa-solid fa-trash"></i>
-					        </span>
-					    </a>
-					</td>
-			    </tr>
-			</tbody>
-        </table>
-        <a class="btn btn-success" href="/addSpell">Añadir nuevo hechizo</a>
-    </div>
+	<div th:fragment="listaMarcas (marcas)" class="container-flex">
+	    <div class="panel-heading">
+	        <h3>Lista de marcas del concesionario</h3>
+	    </div>
+	    <table class="table table-striped">
+	        <thead>
+	            <tr>
+	                <th>Id</th>
+	                <th>Nombre</th>
+	                <th>Fundación</th>
+	                <th>Patrimonio</th>
+	                <th>Moneda</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr th:each="marca : ${marcas}">
+	                <td th:text="${marca.idmarca}"></td>
+	                <td th:text="${marca.nombremarca}"></td>
+	                <td th:text="${marca.fundacion}"></td>
+	                <td th:text="${marca.patrimonio}"></td>
+	                <td th:text="${marca.moneda}"></td>
+	                <td>
+	                    <a th:href="@{'/editarMarca/{id}'(id=${marca.idmarca})}" class="btn btn-primary btn-sm">
+	                        <i class="fa-solid fa-pen-to-square"></i> Editar
+	                    </a>
+	                    <a th:href="@{'/borrarMarca/{id}'(id=${marca.idmarca})}" class="btn btn-danger btn-sm">
+	                        <i class="fa-solid fa-trash"></i> Borrar
+	                    </a>
+	                </td>
+	            </tr>
+	        </tbody>
+	    </table>
+	    <a class="btn btn-success" th:href="@{'/nuevaMarca'}">Añadir nueva marca</a>
+	</div>
+	
+	<div th:fragment="listaVendedores (vendedores)" class="container-flex">
+	    <div class="panel-heading">
+	        <h3>Lista de vendedores</h3>
+	    </div>
+	    <table class="table table-striped">
+	        <thead>
+	            <tr>
+	                <th>Id</th>
+	                <th>Nombre</th>
+	                <th>Apellidos</th>
+	                <th>Fecha de Nacimiento</th>
+	                <th>DNI</th>
+	                <th>Cargo</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr th:each="vendedor : ${vendedores}">
+	                <td th:text="${vendedor.idvendedor}"></td>
+	                <td th:text="${vendedor.nombre}"></td>
+	                <td th:text="${vendedor.apellidos}"></td>
+	                <td th:text="${vendedor.fechanacimiento}"></td>
+	                <td th:text="${vendedor.dni}"></td>
+	                <td th:text="${vendedor.cargo}"></td>
+	                <td>
+	                    <a th:href="@{'/editarVendedor/{id}'(id=${vendedor.idvendedor})}" class="btn btn-primary btn-sm">
+	                        <i class="fa-solid fa-pen-to-square"></i> Editar
+	                    </a>
+	                    <a th:href="@{'/borrarVendedor/{id}'(id=${vendedor.idvendedor})}" class="btn btn-danger btn-sm">
+	                        <i class="fa-solid fa-trash"></i> Borrar
+	                    </a>
+	                </td>
+	            </tr>
+	        </tbody>
+	    </table>
+	    <a class="btn btn-success" th:href="@{'/nuevoVendedor'}">Añadir nuevo vendedor</a>
+	</div>
     
-    <div th:fragment="alPorHeList (alPorHe)" class="container-flex">
+    <div th:fragment="coPorMaList (coPorMa)" class="container-flex">
         <div class="panel-heading">
         	<h3>Lista de estudiantes de Hogwarts</h3>
         </div>
@@ -166,7 +195,7 @@
                 </tr>
             </thead>
             <tbody>
-			    <tr th:each="item : ${alPorHe}">
+			    <tr th:each="item : ${coPorMa}">
 			        <td th:text="${item.fullname}"></td>
 			        <td th:text="${item.email}"></td>
 			        <td th:text="${item.matriculationdate}"></td>
@@ -176,20 +205,6 @@
 			        <td th:text="${item.level}"></td>
 			        <td th:if="${item.islethal}">Si</td>
 			        <td th:unless="${item.islethal}">No</td>
-			        <td>
-					    <a th:href="@{'/editar/{id}'(id=${item.idstudent})}">
-					        <span class="fa-stack">
-					            <i class="fa-solid fa-pen-to-square"></i>
-					        </span>
-					    </a>
-					</td>
-					<td>
-					    <a th:href="@{'/borrar/{id}'(id=${item.idstudent})}">
-					        <span class="fa-stack">
-					            <i class="fa-solid fa-trash"></i>
-					        </span>
-					    </a>
-					</td>
 			    </tr>
 			</tbody>
         </table>
@@ -199,8 +214,8 @@
         <button th:if="${type == 'modify'}" type="submit" class="btn btn-dark">Modificar</button>
         <a th:if="${type == 'modify'}" href="/" class="btn btn-primary">Volver</a>
         
-        <button th:if="${type == 'modifySpell'}" type="submit" class="btn btn-dark">Modificar</button>
-        <a th:if="${type == 'modifySpell'}" href="/spells" class="btn btn-primary">Volver</a>
+        <button th:if="${type == 'modifyMarca'}" type="submit" class="btn btn-dark">Modificar</button>
+        <a th:if="${type == 'modifyMarca'}" href="/marcas" class="btn btn-primary">Volver</a>
         
         <button th:if="${type == 'ban'}" type="submit" class="btn btn-danger">Bannear</button>
         <a th:if="${type == 'ban'}" href="/" class="btn btn-dark">Volver</a>
@@ -208,8 +223,8 @@
         <button th:if="${type == 'add'}" type="submit" class="btn btn-success">Añadir</button>
         <a th:if="${type == 'add'}" href="/" class="btn btn-dark">Volver</a>
         
-        <button th:if="${type == 'addSpell'}" type="submit" class="btn btn-success">Añadir</button>
-        <a th:if="${type == 'addSpell'}" href="/spells" class="btn btn-dark">Volver</a>
+        <button th:if="${type == 'addMarca'}" type="submit" class="btn btn-success">Añadir</button>
+        <a th:if="${type == 'addMarca'}" href="/marcas" class="btn btn-dark">Volver</a>
     </div>
     
     <footer th:fragment="footer">
@@ -228,7 +243,7 @@
 		        <i class="fab fa-twitter text-light"></i>
 		      </button>
 		    </div>
-	      © 2024  Hogwarts Academy
+	      © 2025  Concesionario
 	    </div>
     </footer>
 </body>

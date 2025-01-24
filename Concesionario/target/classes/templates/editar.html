@@ -1,70 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:insert="~{fragments/fragments.html :: headerfiles(title='Editar  : :  Hogwarts')}">
+<head th:insert="~{fragments/fragments.html :: headerfiles(title='Editar  : :  Coches')}">
 </head>
 <body>
 	<div th:insert="~{fragments/fragments.html :: header (page='')}"></div>
     <div class="container">
         <div class="page-header">
-            <h1>Editar estudiante</h1>
+            <h1>Editar coche</h1>
         </div>
-        <form action="#" th:action="@{/actualizar}" th:object="${student}" method="post" class="align-self-center">
-            <input type="hidden" id="idstudent" name="idstudent" th:field="*{idstudent}" />
+        <form action="#" th:action="@{/actualizar}" th:object="${coche}" method="post" class="align-self-center">
+            <input type="hidden" id="idcoche" name="idcoche" th:field="*{idcoche}" />
             <div class="form-group">
-                <label for="fullname" class="col-sm-2 control-label">Nombre</label>
+                <label for="modelo" class="col-sm-2 control-label">Modelo</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{fullname}" id="fullname" required="required" />
-                    <p th:if="${#fields.hasErrors('fullname')}" th:errors="${fullname}" class="alert alert-danger" />
+                    <input type="text" class="form-control" th:field="*{modelo}" id="modelo" required="required" />
+                    <p th:if="${#fields.hasErrors('modelo')}" th:errors="${modelo}" class="alert alert-danger" />
                 </div>
             </div>
             <div class="form-group">
-                <label for="dni" class="col-sm-2 control-label">DNI</label>
+                <label for="idmarca" class="col-sm-2 control-label">Id Marca</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{dni}" id="dni" required="required" />
-                    <p th:if="${#fields.hasErrors('dni')}" th:errors="${dni}" class="alert alert-danger" />
+                    <input type="number" class="form-control" th:field="*{idmarca}" id="idmarca" required="required" />
+                    <p th:if="${#fields.hasErrors('idmarca')}" th:errors="${idmarca}" class="alert alert-danger" />
                 </div>
             </div>
             <div class="form-group">
-                <label for="email" class="col-sm-2 control-label">Email</label>
+                <label for="anyofabricacion" class="col-sm-2 control-label">Año de fabricación</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" th:field="*{email}" id="email" required="required" />
-                    <p th:if="${#fields.hasErrors('email')}" th:errors="${email}" class="alert alert-danger" />
+                    <input type="number" class="form-control" th:field="*{anyofabricacion}" id="anyofabricacion" required="required" />
+                    <p th:if="${#fields.hasErrors('anyofabricacion')}" th:errors="${anyofabricacion}" class="alert alert-danger" />
                 </div>
             </div>
             <div class="form-group">
-                <label for="matriculationdate" class="col-sm-2 control-label">Fecha de matriculación</label>
+                <label for="matriculationdate" class="col-sm-2 control-label">Precio</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" th:field="*{matriculationdate}" id="matriculationdate" required="required" />
-                    <p th:if="${#fields.hasErrors('matriculationdate')}" th:errors="${matriculationdate}" class="alert alert-danger" />
+                    <input type="number" class="form-control" th:field="*{precio}" id="precio" required="required" />
+                    <p th:if="${#fields.hasErrors('precio')}" th:errors="${precio}" class="alert alert-danger" />
                 </div>
             </div>
             <div class="form-group">
-                <label for="birthdate" class="col-sm-2 control-label">Fecha de nacimiento</label>
+                <label for="birthdate" class="col-sm-2 control-label">moneda</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" th:field="*{birthdate}" id="birthdate" required="required" />
-                    <p th:if="${#fields.hasErrors('birthdate')}" th:errors="${birthdate}" class="alert alert-danger" />
+                    <input type="text" class="form-control" th:field="*{moneda}" id="moneda" required="required" />
+                    <p th:if="${#fields.hasErrors('moneda')}" th:errors="${moneda}" class="alert alert-danger" />
                 </div>
             </div>
             <div class="form-group">
-                <label for="gender" class="col-sm-2 control-label">Género</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{gender}" id="gender" required="required" />
-                    <p th:if="${#fields.hasErrors('gender')}" th:errors="${gender}" class="alert alert-danger" />
-                </div>
-            </div>
-            <div class="form-group">
-				<label for="spellknown" class="col-sm-2 control-label">Conoce el hechizo</label>
+				<label for="idvendedor" class="col-sm-2 control-label">Id del vendedor</label>
 				<div class="col-sm-10">
-				    <select id="spellknown" class="form-control" name="spellknown" th:field="*{spellknown}">
-				        <option class="form-control" th:each="spell : ${spells}" th:value="${spell.idspell}" th:text="${spell.spellname}"></option>
+				    <select id="idvendedor" class="form-control" name="idvendedor" th:field="*{idvendedor}">
+				        <option class="form-control" th:each="vendedores : ${vendedores}" th:value="${vendedores.idvendedor}" th:text="${vendedores.idvendedor}"></option>
 				    </select>
 				</div>
-            </div>
-            <div class="form-group mb-2">
-                <div class="col-sm-10">
-	                <input class="form-check-input" type="checkbox" id="ismuggle" th:field="*{ismuggle}" th:value=1 th:name="ismuggle">
-	                <label class="form-check-label" for="ismuggle"> ¿Es muggle?</label>
-                </div>
             </div>
             <div th:insert="~{fragments/fragments.html :: buttons(type='modify')}">
             </div>

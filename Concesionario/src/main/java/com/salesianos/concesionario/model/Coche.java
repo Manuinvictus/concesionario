@@ -12,7 +12,7 @@ public class Coche {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idcoche;
+    private long idcoche;
     private String modelo;
     private int idmarca;
     private int anyofabricacion;
@@ -21,7 +21,7 @@ public class Coche {
     private int idvendedor;
 
     // Getters
-    public int getIdcoche() {
+    public long getIdcoche() {
         return idcoche;
     }
     public String getModelo() {
@@ -44,7 +44,7 @@ public class Coche {
     }
 
     // Setters
-    public void setIdcoche(int idcoche) {
+    public void setIdcoche(long idcoche) {
         this.idcoche = idcoche;
     }
     public void setModelo(String modelo) {

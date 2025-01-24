@@ -5,10 +5,10 @@ import jakarta.persistence.Id;
 import java.util.Date;
 
 @Entity
-public class Vendedores {
+public class Vendedor {
 
     @Id
-    private int idvendedor;
+    private long idvendedor;
     private String nombre;
     private String apellidos;
     private Date fechanacimiento;
@@ -16,7 +16,7 @@ public class Vendedores {
     private String cargo;
 
     // Constructor
-    public Vendedores(int idvendedor, String nombre, String apellidos, Date fechanacimiento, String dni, String cargo) {
+    public Vendedor(long idvendedor, String nombre, String apellidos, Date fechanacimiento, String dni, String cargo) {
         this.idvendedor = idvendedor;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -26,7 +26,7 @@ public class Vendedores {
     }
 
     // Getters
-    public int getIdvendedor() {
+    public long getIdvendedor() {
         return idvendedor;
     }
     public String getNombre() {
@@ -46,7 +46,7 @@ public class Vendedores {
     }
 
     // Setters
-    public void setIdvendedor(int idvendedor) {
+    public void setIdvendedor(long idvendedor) {
         this.idvendedor = idvendedor;
     }
     public void setNombre(String nombre) {

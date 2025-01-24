@@ -79,33 +79,6 @@ public class CochePorMarca {
 
 	public void setNombremarca(String nombremarca) {
 		this.nombremarca = nombremarca;
-<<<<<<< HEAD
-=======
-	}
-
-	public void setAnyofabricacion(int anyofabricacion) {
-		this.anyofabricacion = anyofabricacion;
-	}
-
-	public void setPrecio(int precio) {
-		this.precio = precio;
-	}
-
-	public void setMoneda(String moneda) {
-		this.moneda = moneda;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
->>>>>>> origin/Alex
 	}
 
 	public void setAnyofabricacion(int anyofabricacion) {

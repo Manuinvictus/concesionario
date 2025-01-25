@@ -12,9 +12,9 @@ import com.salesianos.concesionario.model.Coche;
 @Repository
 public interface CochesRepository extends JpaRepository<Coche, Long>{
 
-	List<Coche> findByOrderByFullnameAsc();
+	List<Coche> findByOrderByModeloAsc();
 
-	List<Coche> findByOrderByFullnameDesc();
+	List<Coche> findByOrderByModeloDesc();
 
 	@Query("SELECT c "
 		 + " FROM Coche c "
@@ -30,9 +30,9 @@ public interface CochesRepository extends JpaRepository<Coche, Long>{
 	
 	@Query("SELECT c "
 		 + " FROM Coche c "
-		 + " WHERE c.idmarca = :id "
+		 + " WHERE c.idmarca = :idmarca "
 		 + " ORDER BY c.modelo ASC ")
-	List<Coche> findByIdMarca(@Param("idmarca") int idmarca);
+	List<Coche> findByIdMarca(@Param("idmarca") long idmarca);
 	
 	@Query(value = "SELECT * "
  	 	 + " FROM coches c "

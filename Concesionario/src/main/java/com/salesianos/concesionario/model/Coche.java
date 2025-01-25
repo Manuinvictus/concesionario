@@ -14,11 +14,11 @@ public class Coche {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idcoche;
     private String modelo;
-    private int idmarca;
+    private long idmarca;
     private int anyofabricacion;
     private int precio;
     private String moneda;
-    private int idvendedor;
+    private long idvendedor;
 
     // Getters
     public long getIdcoche() {
@@ -27,7 +27,7 @@ public class Coche {
     public String getModelo() {
         return modelo;
     }
-    public int getIdmarca() {
+    public long getIdmarca() {
         return idmarca;
     }
     public int getAnyofabricacion() {
@@ -39,7 +39,7 @@ public class Coche {
     public String getMoneda() {
         return moneda;
     }
-    public int getIdvendedor() {
+    public long getIdvendedor() {
         return idvendedor;
     }
 
@@ -50,7 +50,7 @@ public class Coche {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
-    public void setIdmarca(int idmarca) {
+    public void setIdmarca(long idmarca) {
         this.idmarca = idmarca;
     }
     public void setAnyofabricacion(int anyofabricacion) {
@@ -62,7 +62,7 @@ public class Coche {
     public void setMoneda(String moneda) {
         this.moneda = moneda;
     }
-    public void setIdvendedor(int idvendedor) {
+    public void setIdvendedor(long idvendedor) {
         this.idvendedor = idvendedor;
     }
 }

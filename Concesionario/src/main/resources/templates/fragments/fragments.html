@@ -65,11 +65,11 @@
 	                    <a th:unless="${type == 'asc'}" href="/asc"><i class="fa-solid fa-arrow-down-a-z offset-5 text-dark"></i></a>
 	                    <a th:if="${type == 'asc'}" href="/desc"><i class="fa-solid fa-arrow-up-a-z offset-5 text-dark"></i></a>
                     </th>
-                    <th>Id marca</th>
+                    <th>Marca</th>
                     <th>Año de fabricación</th>
                     <th>Precio</th>
                     <th>Moneda</th>
-                    <th>Id vendedor</th>
+                    <th>Vendido por:</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,8 +82,8 @@
 			        <td th:text="${coche.anyofabricacion}"></td>
 			        <td th:text="${coche.precio}"></td>
 			        <td th:if="${coche.moneda}"></td>
-			        <td th:each="vendedores : ${vendedores}" th:if="${coche.idvendedor == vendedores.idvendedor}">
-			        	<a th:href="@{'/verVendedor/{id}'(id=${vendedores.idvendedor})}" th:text="${vendedores.nombre}" class="link-dark link-underline link-underline-opacity-0"></a>
+			        <td th:each="vendedor : ${vendedores}" th:if="${coche.idvendedor == vendedor.idvendedor}">
+			        	<a th:href="@{'/verVendedor/{id}'(id=${vendedor.idvendedor})}" th:text="${vendedor.nombre + ' '} + ${vendedor.apellidos}" class="link-dark link-underline link-underline-opacity-0"></a>
 			        </td>
 			        <td>
 					    <a th:href="@{'/editar/{id}'(id=${coche.idcoche})}">

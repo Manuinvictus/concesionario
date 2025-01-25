@@ -18,7 +18,7 @@ public interface MarcasRepository extends JpaRepository<Marca, Long>{
 	@Query("SELECT new CochePorMarca(c.idcoche, c.modelo, m.nombremarca, c.anyofabricacion, c.precio, c.moneda, v.nombre, v.apellidos, v.cargo) "
 		 + " FROM Coche c, Marca m, Vendedor v"
 		 + " WHERE c.idmarca=m.idmarca "
-		 + " AND UPPER(m.idmarca) LIKE ?1% "
+		 + " AND UPPER(m.nombremarca) LIKE ?1% "
 		 + " ORDER BY m.idmarca, c.modelo ASC ")
 	List<CochePorMarca> cochesPorMarca(String modelo);
 

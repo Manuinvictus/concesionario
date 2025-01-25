@@ -41,7 +41,7 @@ public class ConcesionarioController {
     
     @GetMapping("/asc")
     public String listaUsuariosAsc(Model model){
-    	model.addAttribute("coches", cr.findByOrderByFullnameAsc());
+    	model.addAttribute("coches", cr.findByOrderByModeloAsc());
         model.addAttribute("marcas", mr.findAll());
         model.addAttribute("vendedores", vr.findAll());
         model.addAttribute("type", "asc");
@@ -50,7 +50,7 @@ public class ConcesionarioController {
     
     @GetMapping("/desc")
     public String listaUsuariosDesc(Model model){
-    	model.addAttribute("coches", cr.findByOrderByFullnameDesc());
+    	model.addAttribute("coches", cr.findByOrderByModeloDesc());
         model.addAttribute("marcas", mr.findAll());
         model.addAttribute("vendedores", vr.findAll());
         model.addAttribute("type", "desc");

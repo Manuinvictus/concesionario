@@ -3,7 +3,7 @@
 <head th:insert="~{fragments/fragments.html :: headerfiles(title='Registrar coche  : :  Concesionario')}">
 </head>
 <body>
-	<div th:insert="~{fragments/fragments.html :: header (page='')}"></div>
+	<div th:insert="~{fragments/fragments.html :: header (page='coches')}"></div>
     <div class="container">
         <div class="page-header">
             <h1>Matriculación nuevo coche</h1>
@@ -17,10 +17,11 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="idmarca" class="col-sm-2 control-label">Id Marca</label>
+                <label for="idmarca" class="col-sm-2 control-label">Marca</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" th:field="*{idmarca}" id="idmarca" required="required" />
-                    <p th:if="${#fields.hasErrors('idmarca')}" th:errors="${idmarca}" class="alert alert-danger" />
+				    <select id="idmarca" class="form-control" name="idmarca" th:field="*{idmarca}">
+				        <option class="form-control" th:each="marca : ${marcas}" th:value="${marca.idmarca}" th:text="${marca.nombremarca}"></option>
+				    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -31,24 +32,32 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="matriculationdate" class="col-sm-2 control-label">Precio</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" th:field="*{precio}" id="precio" required="required" />
-                    <p th:if="${#fields.hasErrors('precio')}" th:errors="${precio}" class="alert alert-danger" />
+                <div class="row">
+                	<label for="matriculationdate" class="col-sm-2 control-label">Precio</label>
                 </div>
+                <div class="row">
+	                <div class="col-sm-5">
+	                    <input type="number" class="form-control" th:field="*{precio}" id="precio" placeholder="500" required="required" />
+	                    <p th:if="${#fields.hasErrors('precio')}" th:errors="${precio}" class="alert alert-danger" />
+	                </div>
+	                <div class="col-sm-5">
+	                	<select class="form-control" id="moneda" required="required" th:field="*{moneda}">
+	                    	<option value="EUR">Euros</option>
+	                    	<option value="GBP">Libras</option>
+	                    	<option value="USD">Dolares</option>
+	                    	<option value="RON">Leus</option>
+	                    	<option value="RUB">Rublos</option>
+	                    	<option value="SEK">Coronas</option>
+	                    </select>
+	                    <p th:if="${#fields.hasErrors('moneda')}" th:errors="${moneda}" class="alert alert-danger" />
+	                </div>
+            	</div>
             </div>
-            <div class="form-group">
-                <label for="birthdate" class="col-sm-2 control-label">moneda</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{moneda}" id="moneda" required="required" />
-                    <p th:if="${#fields.hasErrors('moneda')}" th:errors="${moneda}" class="alert alert-danger" />
-                </div>
-            </div>
-            <div class="form-group">
-				<label for="idvendedor" class="col-sm-2 control-label">Id del vendedor</label>
+            <div class="form-group mb-2">
+				<label for="idvendedor" class="col-sm-2 control-label">Vendido por</label>
 				<div class="col-sm-10">
 				    <select id="idvendedor" class="form-control" name="idvendedor" th:field="*{idvendedor}">
-				        <option class="form-control" th:each="vendedores : ${vendedores}" th:value="${vendedores.idvendedor}" th:text="${vendedores.idvendedor}"></option>
+				        <option class="form-control" th:each="vendedor : ${vendedores}" th:value="${vendedor.idvendedor}" th:text="${vendedor.nombre + ' ' + vendedor.apellidos}"></option>
 				    </select>
 				</div>
             </div>

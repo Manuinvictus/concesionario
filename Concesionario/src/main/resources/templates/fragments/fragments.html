@@ -12,32 +12,29 @@
     	<nav class="navbar navbar-expand-lg bg-dark">
 		  <div class="container-fluid">
 		    <a class="navbar-brand text-light">
-		    	<i class="fa-solid fa-hat-wizard text-light"></i>
-		    		Concesionario Cochecito de San Fernando
-		    	<i class="fa-solid fa-wand-sparkles text-light"></i>
+		    	<i class="fa-solid fa-warehouse text-light"></i>
+		    		Concesionario Autonova
+		    	<i class="fa-solid fa-motorcycle text-light"></i>
 	    	</a>
 		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		      <span class="navbar-toggler-icon"></span>
 		    </button>
 		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-		        <li class="nav-item">
-		          <a class="nav-link text-light" href="#">Inicio</a>
-		        </li>
 		        <li class="nav-item" th:if="${page == 'marcas'}">
-		          <a class="nav-link active text-secondary" aria-current="page" href="/marcas">Marcas disponibles</a>
+		          <a class="nav-link active text-secondary" aria-current="page" href="#">Marcas disponibles</a>
 		        </li>
 		        <li class="nav-item" th:if="${page != 'marcas'}">
 		          <a class="nav-link text-light" href="/marcas">Marcas disponibles</a>
 		        </li>
 				<li class="nav-item" th:if="${page == 'vendedores'}">
-				  <a class="nav-link active text-secondary" aria-current="page" href="/vendedores">Gestión de vendedores</a>
+				  <a class="nav-link active text-secondary" aria-current="page" href="#">Gestión de vendedores</a>
 				</li>
 				<li class="nav-item" th:if="${page != 'vendedores'}">
 				  <a class="nav-link text-light" href="/vendedores">Gestión de vendedores</a>
 				</li>
 		        <li class="nav-item" th:if="${page == 'coches'}">
-		          <a class="nav-link active text-secondary" aria-current="page" href="/">Gestor de coches</a>
+		          <a class="nav-link active text-secondary" aria-current="page" href="#">Gestor de coches</a>
 		        </li>
 				<li class="nav-item" th:if="${page != 'coches'}">
 				  <a class="nav-link text-light" href="/">Gestor de coches</a>
@@ -52,7 +49,7 @@
 		</nav>
     </div>
     
-    <div th:fragment="list (coches, marcas, vendedores)" class="container-flex">
+    <div th:fragment="list (coches, marcas, vendedores, type)" class="container-flex">
         <div class="panel-heading">
         	<h3>Lista de coches del concesionario</h3>
         </div>
@@ -62,13 +59,12 @@
                     <th>Id</th>
                     <th>
                     	Modelo coche
-	                    <a th:unless="${type == 'asc'}" href="/asc"><i class="fa-solid fa-arrow-down-a-z offset-5 text-dark"></i></a>
-	                    <a th:if="${type == 'asc'}" href="/desc"><i class="fa-solid fa-arrow-up-a-z offset-5 text-dark"></i></a>
+	                    <a th:unless="${type == 'asc'}" href="/asc"><i class="fa-solid fa-arrow-down-a-z offset-1 text-dark"></i></a>
+	                    <a th:if="${type == 'asc'}" href="/desc"><i class="fa-solid fa-arrow-up-a-z offset-1 text-dark"></i></a>
                     </th>
                     <th>Marca</th>
                     <th>Año de fabricación</th>
                     <th>Precio</th>
-                    <th>Moneda</th>
                     <th>Vendido por:</th>
                 </tr>
             </thead>
@@ -76,12 +72,11 @@
 			    <tr th:each="coche : ${coches}">
 			        <td th:text="${coche.idcoche}"></td>
 			        <td th:text="${coche.modelo}"></td>
-					<td th:each="marcas : ${marcas}" th:if="${coche.idmarca == marcas.idmarca}">
-			        	<a th:href="@{'/verMarca/{id}'(id=${marcas.idmarca})}" th:text="${marcas.nombremarca}" class="link-dark link-underline link-underline-opacity-0"></a>
+					<td th:each="marca : ${marcas}" th:if="${coche.idmarca == marca.idmarca}">
+			        	<a th:href="@{'/verMarca/{id}'(id=${marca.idmarca})}" th:text="${marca.nombremarca}" class="link-dark link-underline link-underline-opacity-0"></a>
 			        </td>
 			        <td th:text="${coche.anyofabricacion}"></td>
-			        <td th:text="${coche.precio}"></td>
-			        <td th:if="${coche.moneda}"></td>
+			        <td th:text="${coche.precio + ' ' + coche.moneda}"></td>
 			        <td th:each="vendedor : ${vendedores}" th:if="${coche.idvendedor == vendedor.idvendedor}">
 			        	<a th:href="@{'/verVendedor/{id}'(id=${vendedor.idvendedor})}" th:text="${vendedor.nombre + ' '} + ${vendedor.apellidos}" class="link-dark link-underline link-underline-opacity-0"></a>
 			        </td>
@@ -102,7 +97,7 @@
 			    </tr>
 			</tbody>
         </table>
-        <a class="btn btn-success" href="/añadir">Añadir nuevo coche</a>
+        <a class="btn btn-success" href="/add">Añadir nuevo coche</a>
     </div>
     
 	<div th:fragment="listaMarcas (marcas)" class="container-flex">
@@ -116,7 +111,6 @@
 	                <th>Nombre</th>
 	                <th>Fundación</th>
 	                <th>Patrimonio</th>
-	                <th>Moneda</th>
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -124,8 +118,7 @@
 	                <td th:text="${marca.idmarca}"></td>
 	                <td th:text="${marca.nombremarca}"></td>
 	                <td th:text="${marca.fundacion}"></td>
-	                <td th:text="${marca.patrimonio}"></td>
-	                <td th:text="${marca.moneda}"></td>
+	                <td th:text="${marca.patrimonio + ' ' + marca.moneda}"></td>
 	                <td>
 	                    <a th:href="@{'/editarMarca/{id}'(id=${marca.idmarca})}" class="btn btn-primary btn-sm">
 	                        <i class="fa-solid fa-pen-to-square"></i> Editar
@@ -137,7 +130,7 @@
 	            </tr>
 	        </tbody>
 	    </table>
-	    <a class="btn btn-success" th:href="@{'/nuevaMarca'}">Añadir nueva marca</a>
+	    <a class="btn btn-success" th:href="@{'/addMarca'}">Añadir nueva marca</a>
 	</div>
 	
 	<div th:fragment="listaVendedores (vendedores)" class="container-flex">
@@ -156,7 +149,7 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr th:each="vendedor : ${vendedores}">
+	            <tr th:each="vendedor : ${vendedores} " th:unless="${vendedor.idvendedor == 0}">
 	                <td th:text="${vendedor.idvendedor}"></td>
 	                <td th:text="${vendedor.nombre}"></td>
 	                <td th:text="${vendedor.apellidos}"></td>
@@ -174,12 +167,12 @@
 	            </tr>
 	        </tbody>
 	    </table>
-	    <a class="btn btn-success" th:href="@{'/nuevoVendedor'}">Añadir nuevo vendedor</a>
+	    <a class="btn btn-success" th:href="@{'/addVendedor'}">Añadir nuevo vendedor</a>
 	</div>
     
 	<div th:fragment="coPorMaList (coPorMa)" class="container-flex">
 	    <div class="panel-heading">
-	        <h3>Lista de coches y vendedores</h3>
+	        <h3>Lista de coches por marca</h3>
 	    </div>
 	    <table class="table table-striped">
 	        <thead>
@@ -190,8 +183,7 @@
 	                <th>Año de Fabricación</th>
 	                <th>Precio</th>
 	                <th>Moneda</th>
-	                <th>Nombre Vendedor</th>
-	                <th>Apellidos</th>
+	                <th>Vendido por</th>
 	                <th>Cargo</th>
 	            </tr>
 	        </thead>
@@ -203,8 +195,7 @@
 	                <td th:text="${item.anyofabricacion}"></td>
 	                <td th:text="${item.precio}"></td>
 	                <td th:text="${item.moneda}"></td>
-	                <td th:text="${item.nombre}"></td>
-	                <td th:text="${item.apellidos}"></td>
+	                <td th:text="${item.nombre + ' ' + item.apellidos}"></td>
 	                <td th:text="${item.cargo}"></td>
 	            </tr>
 	        </tbody>

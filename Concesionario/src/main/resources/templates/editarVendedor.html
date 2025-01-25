@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:insert="~{fragments/fragments.html :: headerfiles(title='Editar hechizos  : :  Hogwarts')}">
+<head th:insert="~{fragments/fragments.html :: headerfiles(title='Editar vendedor  : :  Concesionario')}">
 </head>
 <body>
-	<div th:insert="~{fragments/fragments.html :: header (page='spells')}"></div>
+	<div th:insert="~{fragments/fragments.html :: header (page='vendedores')}"></div>
     <div class="container">
         <div class="page-header">
             <h1>Editar vendedor</h1>
@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label for="fechanacimiento" class="col-sm-2 control-label">Fecha de nacimiento:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{fechanacimiento}" id="fechanacimiento" required="required" />
+                    <input type="date" class="form-control" th:field="*{fechanacimiento}" id="fechanacimiento" required="required" />
                     <p th:if="${#fields.hasErrors('fechanacimiento')}" th:errors="${fechanacimiento}" class="alert alert-danger" />
                 </div>
             </div>

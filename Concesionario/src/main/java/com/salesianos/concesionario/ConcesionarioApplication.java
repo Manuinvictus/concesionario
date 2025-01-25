@@ -3,7 +3,7 @@ package com.salesianos.concesionario;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import config.DataInitializer;
+import com.salesianos.concesionario.config.DataInitializer;
 
 @SpringBootApplication
 public class ConcesionarioApplication {

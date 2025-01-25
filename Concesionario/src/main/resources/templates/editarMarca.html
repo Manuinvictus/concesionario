@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:insert="~{fragments/fragments.html :: headerfiles(title='Editar Marca  : :  Concesionario')}">
+<head th:insert="~{fragments/fragments.html :: headerfiles(title='Editar marca  : :  Concesionario')}">
 </head>
 <body>
-	<div th:insert="~{fragments/fragments.html :: header (page='spells')}"></div>
+	<div th:insert="~{fragments/fragments.html :: header (page='marcas')}"></div>
     <div class="container">
         <div class="page-header">
             <h1>Editar Marca</h1>
@@ -20,23 +20,31 @@
             <div class="form-group">
                 <label for="fundacion" class="col-sm-2 control-label">Fundación:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{fundacion}" id="fundacion" required="required" />
+                    <input type="date" class="form-control" th:field="*{fundacion}" id="fundacion" required="required" />
                     <p th:if="${#fields.hasErrors('fundacion')}" th:errors="${fundacion}" class="alert alert-danger" />
                 </div>
             </div>
             <div class="form-group">
-                <label for="patrimonio" class="col-sm-2 control-label">Patrimonio</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" th:field="*{patrimonio}" id="patrimonio" required="required" />
-                    <p th:if="${#fields.hasErrors('patrimonio')}" th:errors="${patrimonio}" class="alert alert-danger" />
+                <div class="row">
+                	<label for="patrimonio" class="col-sm-2 control-label">Patrimonio</label>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="moneda" class="col-sm-2 control-label">Moneda</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{moneda}" id="moneda" required="required" />
-                    <p th:if="${#fields.hasErrors('moneda')}" th:errors="${moneda}" class="alert alert-danger" />
-                </div>
+                <div class="row">
+	                <div class="col-sm-5">
+	                    <input type="number" class="form-control" th:field="*{patrimonio}" id="patrimonio" required="required" />
+	                    <p th:if="${#fields.hasErrors('patrimonio')}" th:errors="${patrimonio}" class="alert alert-danger" />
+	                </div>
+	                <div class="col-sm-5">
+	                	<select class="form-control" id="moneda" required="required" th:field="*{moneda}">
+	                    	<option value="EUR">Euros</option>
+	                    	<option value="GBP">Libras</option>
+	                    	<option value="USD">Dolares</option>
+	                    	<option value="RON">Leus</option>
+	                    	<option value="RUB">Rublos</option>
+	                    	<option value="SEK">Coronas</option>
+	                    </select>
+	                    <p th:if="${#fields.hasErrors('moneda')}" th:errors="${moneda}" class="alert alert-danger" />
+	                </div>
+            	</div>
             </div>
             <div th:insert="~{fragments/fragments.html :: buttons(type='modifyMarca')}">
             </div>

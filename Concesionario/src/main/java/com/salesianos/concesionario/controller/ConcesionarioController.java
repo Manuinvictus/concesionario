@@ -116,9 +116,6 @@ public class ConcesionarioController {
             return "redirect:/add";
         }else{
         	cr.save(coche);
-        	model.addAttribute("coches", cr.findAll());
-            model.addAttribute("marcas", mr.findAll());
-            model.addAttribute("vendedores", vr.findAll());
             return "redirect:/";
         }
     }
@@ -130,7 +127,6 @@ public class ConcesionarioController {
             return "redirect:/addMarca";
         }else{
         	mr.save(marca);
-        	model.addAttribute("marcas", mr.findAll());
             return "redirect:/marcas";
         }
     }
@@ -142,7 +138,6 @@ public class ConcesionarioController {
             return "redirect:/addVendedor";
         }else{
         	vr.save(vendedor);
-        	model.addAttribute("vendedores", vr.findAll());
             return "redirect:/vendedores";
         }
     }
@@ -151,9 +146,6 @@ public class ConcesionarioController {
     public String borrar(@PathVariable long id, Model model){
     	Optional<Coche> c = cr.findById(id);
     	cr.delete(c.get());
-        model.addAttribute("coches", cr.findAll());
-        model.addAttribute("marcas", mr.findAll());
-        model.addAttribute("vendedores", vr.findAll());
         return "redirect:/";
     }
     
@@ -166,7 +158,6 @@ public class ConcesionarioController {
     	}
     	Optional<Marca> m = mr.findById(id);
     	mr.delete(m.get());
-        model.addAttribute("marcas", mr.findAll());
         return "redirect:/marcas";
     }
     
@@ -179,7 +170,6 @@ public class ConcesionarioController {
     	}
     	Optional<Vendedor> v = vr.findById(id);
     	vr.delete(v.get());
-        model.addAttribute("vendedores", vr.findAll());
         return "redirect:/vendedores";
     }
 
@@ -209,10 +199,7 @@ public class ConcesionarioController {
     @PostMapping("/actualizar")
     public String actualizar(Coche coche, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-        	model.addAttribute("coches", cr.findAll());
-            model.addAttribute("marcas", mr.findAll());
-            model.addAttribute("vendedores", vr.findAll());
-        return "redirect:/";
+        	return "redirect:/";
         }
         Optional<Coche> sl = cr.findById(coche.getIdcoche());
         Coche newCar = sl.get();
@@ -223,9 +210,6 @@ public class ConcesionarioController {
         newCar.setMoneda(coche.getMoneda());
         newCar.setIdvendedor(coche.getIdvendedor());
         cr.save(coche);
-    	model.addAttribute("coches", cr.findAll());
-        model.addAttribute("marcas", mr.findAll());
-        model.addAttribute("vendedores", vr.findAll());
         return "redirect:/";
     }
     
@@ -243,14 +227,12 @@ public class ConcesionarioController {
         newBrand.setPatrimonio(marca.getPatrimonio());
         newBrand.setMoneda(marca.getMoneda());
         mr.save(newBrand);
-        model.addAttribute("marcas", mr.findAll());
         return "redirect:/marcas";
     }
     
     @PostMapping("/actualizarVendedor")
     public String actualizarVendedor(Vendedor vendedor, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-            model.addAttribute("vendedores", vr.findAll());
             return "redirect:/vendedores";
         }
         Optional<Vendedor> v = vr.findById(vendedor.getIdvendedor());
@@ -262,7 +244,6 @@ public class ConcesionarioController {
         newSeller.setDni(vendedor.getDni());
         newSeller.setCargo(vendedor.getCargo());
         vr.save(newSeller);
-        model.addAttribute("vendedores", vr.findAll());
         return "redirect:/vendedores";
     }
     

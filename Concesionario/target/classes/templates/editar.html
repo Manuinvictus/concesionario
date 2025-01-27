@@ -17,12 +17,13 @@
                     <p th:if="${#fields.hasErrors('modelo')}" th:errors="${modelo}" class="alert alert-danger" />
                 </div>
             </div>
-            <div class="form-group">
-                <label for="idmarca" class="col-sm-2 control-label">Marca</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" th:field="*{idmarca}" id="idmarca" required="required" />
-                    <p th:if="${#fields.hasErrors('idmarca')}" th:errors="${idmarca}" class="alert alert-danger" />
-                </div>
+            <div class="form-group mb-2">
+				<label for="idmarca" class="col-sm-2 control-label">Marca</label>
+				<div class="col-sm-10">
+				    <select id="idmarca" class="form-control" name="idmarca" th:field="*{idmarca}">
+				        <option class="form-control" th:each="marca : ${marcas}" th:value="${marca.idmarca}" th:text="${marca.nombremarca}"></option>
+				    </select>
+				</div>
             </div>
             <div class="form-group">
                 <label for="anyofabricacion" class="col-sm-2 control-label">Año de fabricación</label>
@@ -53,7 +54,7 @@
 	                </div>
             	</div>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
 				<label for="idvendedor" class="col-sm-2 control-label">Vendido por:</label>
 				<div class="col-sm-10">
 				    <select id="idvendedor" class="form-control" name="idvendedor" th:field="*{idvendedor}">

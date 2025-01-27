@@ -33,7 +33,7 @@
 	                    <input type="number" class="form-control" th:field="*{patrimonio}" id="patrimonio" required="required" />
 	                    <p th:if="${#fields.hasErrors('patrimonio')}" th:errors="${patrimonio}" class="alert alert-danger" />
 	                </div>
-	                <div class="col-sm-5">
+	                <div class="col-sm-5 mb-2">
 	                	<select class="form-control" id="moneda" required="required" th:field="*{moneda}">
 	                    	<option value="EUR">Euros</option>
 	                    	<option value="GBP">Libras</option>

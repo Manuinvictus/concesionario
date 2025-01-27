@@ -21,6 +21,12 @@
 		    </button>
 		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+		        <li class="nav-item" th:if="${page == 'coches'}">
+		          <a class="nav-link active text-secondary" aria-current="page" href="#">Gestor de coches</a>
+		        </li>
+				<li class="nav-item" th:if="${page != 'coches'}">
+				  <a class="nav-link text-light" href="/">Gestor de coches</a>
+				</li>
 		        <li class="nav-item" th:if="${page == 'marcas'}">
 		          <a class="nav-link active text-secondary" aria-current="page" href="#">Marcas disponibles</a>
 		        </li>
@@ -32,12 +38,6 @@
 				</li>
 				<li class="nav-item" th:if="${page != 'vendedores'}">
 				  <a class="nav-link text-light" href="/vendedores">Gestión de vendedores</a>
-				</li>
-		        <li class="nav-item" th:if="${page == 'coches'}">
-		          <a class="nav-link active text-secondary" aria-current="page" href="#">Gestor de coches</a>
-		        </li>
-				<li class="nav-item" th:if="${page != 'coches'}">
-				  <a class="nav-link text-light" href="/">Gestor de coches</a>
 				</li>
 		      </ul>
 		      <form class="d-flex" role="search" th:action="@{/buscar}">
@@ -90,7 +90,7 @@
 					<td>
 					    <a th:href="@{'/borrar/{id}'(id=${coche.idcoche})}">
 					        <span class="fa-stack">
-					            <i class="fa-solid fa-trash"></i>
+					            <i class="fa-solid fa-trash text-danger"></i>
 					        </span>
 					    </a>
 					</td>
@@ -120,13 +120,19 @@
 	                <td th:text="${marca.fundacion}"></td>
 	                <td th:text="${marca.patrimonio + ' ' + marca.moneda}"></td>
 	                <td>
-	                    <a th:href="@{'/editarMarca/{id}'(id=${marca.idmarca})}" class="btn btn-primary btn-sm">
-	                        <i class="fa-solid fa-pen-to-square"></i> Editar
-	                    </a>
-	                    <a th:href="@{'/borrarMarca/{id}'(id=${marca.idmarca})}" class="btn btn-danger btn-sm">
-	                        <i class="fa-solid fa-trash"></i> Borrar
-	                    </a>
-	                </td>
+					    <a th:href="@{'/editarMarca/{id}'(id=${marca.idmarca})}">
+					        <span class="fa-stack">
+					            <i class="fa-solid fa-pen-to-square"></i>
+					        </span>
+					    </a>
+					</td>
+					<td>
+					    <a th:href="@{'/borrarMarca/{id}'(id=${marca.idmarca})}">
+					        <span class="fa-stack">
+					            <i class="fa-solid fa-trash text-danger"></i>
+					        </span>
+					    </a>
+					</td>
 	            </tr>
 	        </tbody>
 	    </table>
@@ -157,13 +163,19 @@
 	                <td th:text="${vendedor.dni}"></td>
 	                <td th:text="${vendedor.cargo}"></td>
 	                <td>
-	                    <a th:href="@{'/editarVendedor/{id}'(id=${vendedor.idvendedor})}" class="btn btn-primary btn-sm">
-	                        <i class="fa-solid fa-pen-to-square"></i> Editar
-	                    </a>
-	                    <a th:href="@{'/borrarVendedor/{id}'(id=${vendedor.idvendedor})}" class="btn btn-danger btn-sm">
-	                        <i class="fa-solid fa-trash"></i> Borrar
-	                    </a>
-	                </td>
+					    <a th:href="@{'/editarVendedor/{id}'(id=${vendedor.idvendedor})}">
+					        <span class="fa-stack">
+					            <i class="fa-solid fa-pen-to-square"></i>
+					        </span>
+					    </a>
+					</td>
+					<td>
+					    <a th:href="@{'/borrarVendedor/{id}'(id=${vendedor.idvendedor})}">
+					        <span class="fa-stack">
+					            <i class="fa-solid fa-trash text-danger"></i>
+					        </span>
+					    </a>
+					</td>
 	            </tr>
 	        </tbody>
 	    </table>

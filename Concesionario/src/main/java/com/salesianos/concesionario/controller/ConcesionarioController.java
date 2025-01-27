@@ -186,7 +186,7 @@ public class ConcesionarioController {
     public String editarMarca(@PathVariable long id, Model model){
     	Optional<Marca> m = mr.findById(id);
     	model.addAttribute("marca", m.get());
-        return "editarHechizo";
+        return "editarMarca";
     }
     
     @GetMapping("/editarVendedor/{id}")

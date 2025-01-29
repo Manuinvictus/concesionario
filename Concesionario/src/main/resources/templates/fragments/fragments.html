@@ -2,19 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="headerfiles (title)">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  	<script src="https://kit.fontawesome.com/db594b3344.js" crossorigin="anonymous"></script>
+  	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Iceland&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chathura:wght@100;300;400;700;800&family=Electrolize&family=Iceland&family=Raleway:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/e01605ab09.js" crossorigin="anonymous"></script>
 	<title th:text="${title}"> Campos </title>
 </head>
 <body>
 
     <div th:fragment="header (page)">
-    	<nav class="navbar navbar-expand-lg bg-dark">
-		  <div class="container-fluid">
+    	<nav class="navbar navbar-expand-lg bg-black">
+		  <div class="container-fluid ps-5 pe-5">
 		    <a class="navbar-brand text-light">
-		    	<i class="fa-solid fa-warehouse text-light"></i>
-		    		Concesionario Autonova
-		    	<i class="fa-solid fa-motorcycle text-light"></i>
+		    		<div class="text-uppercase">Concesionario Autonova</div>
 	    	</a>
 		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		      <span class="navbar-toggler-icon"></span>
@@ -41,201 +48,233 @@
 				</li>
 		      </ul>
 		      <form class="d-flex" role="search" th:action="@{/buscar}">
-		        <input class="form-control me-2" type="search" name="nomMarca" placeholder="Buscar por marca" aria-label="Search">
-		        <button class="btn btn-outline-success" type="submit">Buscar</button>
+		        <input class="form-control rounded-0" type="search" name="nomMarca" placeholder="Buscar por marca" aria-label="Search">
+		        <button class="btn btn-outline-secondary rounded-0" type="submit">Buscar</button>
 		      </form>
 		    </div>
 		  </div>
 		</nav>
     </div>
     
-    <div th:fragment="list (coches, marcas, vendedores, type)" class="container-flex">
-        <div class="panel-heading">
-        	<h3>Lista de coches del concesionario</h3>
+    <div th:fragment="list (coches, marcas, vendedores, type)" class="container-flex bg-image" 
+	style="min-height: 35em;background-image: url('https://img.freepik.com/foto-gratis/faros-traseros-coche-lujo-negro_146671-19733.jpg?t=st=1738005186~exp=1738008786~hmac=c7c8ed6c366475e96b9e4dd4ad7d0e9e790e3967f73a45204da7776caf6978c0&w=996');background-size:cover;">
+		<div class="panel-heading pt-3 pb-3">
+        	<div class="col-12 h1 d-flex justify-content-center text-uppercase text-center text-light" style="filter: drop-shadow(0px 2px 2px #000000);">Lista de coches del concesionario</div>
         </div>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>
-                    	Modelo coche
-	                    <a th:unless="${type == 'asc'}" href="/asc"><i class="fa-solid fa-arrow-down-a-z offset-1 text-dark"></i></a>
-	                    <a th:if="${type == 'asc'}" href="/desc"><i class="fa-solid fa-arrow-up-a-z offset-1 text-dark"></i></a>
-                    </th>
-                    <th>Marca</th>
-                    <th>Año de fabricación</th>
-                    <th>Precio</th>
-                    <th>Vendido por:</th>
-                </tr>
-            </thead>
-            <tbody>
-			    <tr th:each="coche : ${coches}">
-			        <td th:text="${coche.idcoche}"></td>
-			        <td th:text="${coche.modelo}"></td>
-					<td th:each="marca : ${marcas}" th:if="${coche.idmarca == marca.idmarca}">
-			        	<a th:href="@{'/verMarca/{id}'(id=${marca.idmarca})}" th:text="${marca.nombremarca}" class="link-dark link-underline link-underline-opacity-0"></a>
-			        </td>
-			        <td th:text="${coche.anyofabricacion}"></td>
-			        <td th:text="${coche.precio + ' ' + coche.moneda}"></td>
-			        <td th:each="vendedor : ${vendedores}" th:if="${coche.idvendedor == vendedor.idvendedor}">
-			        	<a th:href="@{'/verVendedor/{id}'(id=${vendedor.idvendedor})}" th:text="${vendedor.nombre + ' '} + ${vendedor.apellidos}" class="link-dark link-underline link-underline-opacity-0"></a>
-			        </td>
-			        <td>
-					    <a th:href="@{'/editar/{id}'(id=${coche.idcoche})}">
-					        <span class="fa-stack">
-					            <i class="fa-solid fa-pen-to-square"></i>
-					        </span>
-					    </a>
-					</td>
-					<td>
-					    <a th:href="@{'/borrar/{id}'(id=${coche.idcoche})}">
-					        <span class="fa-stack">
-					            <i class="fa-solid fa-trash text-danger"></i>
-					        </span>
-					    </a>
-					</td>
-			    </tr>
-			</tbody>
-        </table>
-        <a class="btn btn-success" href="/add">Añadir nuevo coche</a>
+		<div class="d-flex justify-content-center">
+			<div class="col-12 col-md-10">
+				<table class="table table-striped shadow-sm p-3 mb-4 rounded-3" style="--bs-table-bg: #000000d1;">
+		            <thead class="" style="background-color: var(--bs-table-bg);">
+		                <tr class="col rounded-5">
+		                    <th class="bg-transparent text-light text-uppercase">Id</th>
+		                    <th class="bg-transparent text-light text-uppercase">
+		                    	Modelo coche
+			                    <a th:unless="${type == 'asc'}" href="/asc"><i class="fa-solid fa-arrow-down-a-z offset-1 link-secondary text-light"></i></a>
+			                    <a th:if="${type == 'asc'}" href="/desc"><i class="fa-solid fa-arrow-up-a-z offset-1 link-secondary text-light"></i></a>
+		                    </th>
+		                    <th class="bg-transparent text-light text-uppercase">Marca</th>
+		                    <th class="bg-transparent text-light text-uppercase">Año de fabricación</th>
+		                    <th class="bg-transparent text-light text-uppercase">Precio</th>
+		                    <th class="bg-transparent text-light text-uppercase">Vendedor</th>
+							<th class="bg-transparent text-light text-uppercase">Editar</th>
+							<th class="bg-transparent text-light text-uppercase">Borrar</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+					    <tr th:each="coche : ${coches}">
+					        <td class="text-light" th:text="${coche.idcoche}"></td>
+					        <td class="text-light" th:text="${coche.modelo}"></td>
+							<td class="text-light" th:each="marca : ${marcas}" th:if="${coche.idmarca == marca.idmarca}">
+					        	<a th:href="@{'/verMarca/{id}'(id=${marca.idmarca})}" th:text="${marca.nombremarca}" class="link-secondary text-light link-underline link-underline-opacity-0"></a>
+					        </td>
+					        <td class="ms-5 text-light" th:text="${coche.anyofabricacion}"></td>
+					        <td class="text-light" th:text="${coche.precio + ' ' + coche.moneda}"></td>
+					        <td class="text-light" th:each="vendedor : ${vendedores}" th:if="${coche.idvendedor == vendedor.idvendedor}">
+					        	<a th:href="@{'/verVendedor/{id}'(id=${vendedor.idvendedor})}" th:text="${vendedor.nombre + ' '} + ${vendedor.apellidos}" class="link-secondary text-light link-underline link-underline-opacity-0"></a>
+					        </td>
+					        <td class="border-top text-light">
+							    <a th:href="@{'/editar/{id}'(id=${coche.idcoche})}">
+							        <span class="d-flex justify-content-center align-items-center ms-2 fa-stack">
+							            <i class="fa-solid fa-pen-to-square link-secondary text-light"></i>
+							        </span>
+							    </a>
+							</td>
+							<td class="border-top text-light">
+							    <a th:href="@{'/borrar/{id}'(id=${coche.idcoche})}">
+							        <span class="d-flex justify-content-center align-items-center ms-2 fa-stack">
+							            <i class="fa-solid fa-trash text-danger link-secondary text-light"></i>
+							        </span>
+							    </a>
+							</td>
+					    </tr>
+					</tbody>
+		        </table>
+			</div>
+		</div>
+        <div class="d-flex justify-content-center pb-5">
+			<a class="col-10 col-md-6 col-lg-4 btn btn-dark text-uppercase" href="/add">Añadir nuevo coche</a>
+		</div>
     </div>
     
-	<div th:fragment="listaMarcas (marcas)" class="container-flex">
-	    <div class="panel-heading">
-	        <h3>Lista de marcas del concesionario</h3>
+	<div th:fragment="listaMarcas (marcas)" class="container-flex bg-image" 
+	style="min-height: 35em;background-image: url('https://img.freepik.com/foto-gratis/vista-cercana-manos-padre-e-hijo_23-2148404221.jpg?t=st=1738088355~exp=1738091955~hmac=6503742e9fb611810599354ea5eeea2921860d216bbe8fa99836b145b5a2ae04&w=996');background-size:cover;">
+	    <div class="panel-heading p-3">
+	        <div class="col-12 h1 d-flex justify-content-center text-uppercase text-center text-light" style="filter: drop-shadow(0px 2px 2px #000000);">Lista de marcas del concesionario</div>
 	    </div>
-	    <table class="table table-striped">
-	        <thead>
-	            <tr>
-	                <th>Id</th>
-	                <th>Nombre</th>
-	                <th>Fundación</th>
-	                <th>Patrimonio</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr th:each="marca : ${marcas}">
-	                <td th:text="${marca.idmarca}"></td>
-	                <td th:text="${marca.nombremarca}"></td>
-	                <td th:text="${marca.fundacion}"></td>
-	                <td th:text="${marca.patrimonio + ' ' + marca.moneda}"></td>
-	                <td>
-					    <a th:href="@{'/editarMarca/{id}'(id=${marca.idmarca})}">
-					        <span class="fa-stack">
-					            <i class="fa-solid fa-pen-to-square"></i>
-					        </span>
-					    </a>
-					</td>
-					<td>
-					    <a th:href="@{'/borrarMarca/{id}'(id=${marca.idmarca})}">
-					        <span class="fa-stack">
-					            <i class="fa-solid fa-trash text-danger"></i>
-					        </span>
-					    </a>
-					</td>
-	            </tr>
-	        </tbody>
-	    </table>
-	    <a class="btn btn-success" th:href="@{'/addMarca'}">Añadir nueva marca</a>
+		<div class="d-flex justify-content-center">
+			<div class="col-12 col-md-10">
+			    <table class="table table-striped shadow-sm p-3 mb-4 rounded-3" style="--bs-table-bg: #000000d1;">
+			        <thead class="" style="background-color: var(--bs-table-bg);">
+			            <tr class="col rounded-5">
+			                <th class="bg-transparent text-light text-uppercase">Id</th>
+			                <th class="bg-transparent text-light text-uppercase">Nombre</th>
+			                <th class="bg-transparent text-light text-uppercase">Fundación</th>
+			                <th class="bg-transparent text-light text-uppercase">Patrimonio</th>
+							<th class="bg-transparent text-light text-uppercase">Editar</th>
+							<th class="bg-transparent text-light text-uppercase">Borrar</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <tr th:each="marca : ${marcas}">
+			                <td class="text-light" th:text="${marca.idmarca}"></td>
+			                <td class="text-light" th:text="${marca.nombremarca}"></td>
+			                <td class="text-light" th:text="${marca.fundacion}"></td>
+			                <td class="text-light" th:text="${marca.patrimonio + ' ' + marca.moneda}"></td>
+			                <td class="border-top text-light">
+							    <a th:href="@{'/editarMarca/{id}'(id=${marca.idmarca})}">
+									<span class="d-flex justify-content-center align-items-center ms-2 fa-stack">
+							            <i class="fa-solid fa-pen-to-square link-secondary text-light"></i>
+							        </span>
+							    </a>
+							</td>
+							<td class="border-top text-light">
+							    <a th:href="@{'/borrarMarca/{id}'(id=${marca.idmarca})}">
+								<span class="d-flex justify-content-center align-items-center ms-2 fa-stack">
+								    <i class="fa-solid fa-trash text-danger link-secondary text-light"></i>
+								</span>
+							    </a>
+							</td>
+			            </tr>
+			        </tbody>
+			    </table>
+			</div>
+		</div>
+		<div class="d-flex justify-content-center pb-5">
+			<a class="col-10 col-md-6 col-lg-4 btn btn-dark text-uppercase" th:href="@{'/addMarca'}">Añadir nueva marca</a>
+		</div>
 	</div>
 	
-	<div th:fragment="listaVendedores (vendedores)" class="container-flex">
-	    <div class="panel-heading">
-	        <h3>Lista de vendedores</h3>
-	    </div>
-	    <table class="table table-striped">
-	        <thead>
-	            <tr>
-	                <th>Id</th>
-	                <th>Nombre</th>
-	                <th>Apellidos</th>
-	                <th>Fecha de Nacimiento</th>
-	                <th>DNI</th>
-	                <th>Cargo</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr th:each="vendedor : ${vendedores} " th:unless="${vendedor.idvendedor == 0}">
-	                <td th:text="${vendedor.idvendedor}"></td>
-	                <td th:text="${vendedor.nombre}"></td>
-	                <td th:text="${vendedor.apellidos}"></td>
-	                <td th:text="${vendedor.fechanacimiento}"></td>
-	                <td th:text="${vendedor.dni}"></td>
-	                <td th:text="${vendedor.cargo}"></td>
-	                <td>
-					    <a th:href="@{'/editarVendedor/{id}'(id=${vendedor.idvendedor})}">
-					        <span class="fa-stack">
-					            <i class="fa-solid fa-pen-to-square"></i>
-					        </span>
-					    </a>
-					</td>
-					<td>
-					    <a th:href="@{'/borrarVendedor/{id}'(id=${vendedor.idvendedor})}">
-					        <span class="fa-stack">
-					            <i class="fa-solid fa-trash text-danger"></i>
-					        </span>
-					    </a>
-					</td>
-	            </tr>
-	        </tbody>
-	    </table>
-	    <a class="btn btn-success" th:href="@{'/addVendedor'}">Añadir nuevo vendedor</a>
+	<div th:fragment="listaVendedores (vendedores)" 	class="container-flex bg-image" 
+	style="min-height: 35em;background-image: url('https://img.freepik.com/foto-gratis/mujer-disfrutando-su-independencia-financiera-mientras-compra-coche_23-2149434335.jpg?t=st=1738087749~exp=1738091349~hmac=09b0b714ddd8839a471c83f6377f61d96b2f43098fefa505d8e9fcafb75d02c4&w=996');background-size:cover;">
+	<div class="panel-heading pt-3 pb-3">
+    	<div class="col-12 h1 d-flex justify-content-center text-uppercase text-center text-light" style="filter: drop-shadow(0px 2px 2px #000000);">Lista de vendedores</div>
+    </div>
+	<div class="d-flex justify-content-center">
+		<div class="col-12 col-md-10">
+		    <table class="table table-striped shadow-sm p-3 mb-4 rounded-3" style="--bs-table-bg: #000000d1;">
+		        <thead class="" style="background-color: var(--bs-table-bg);">
+		            <tr class="col rounded-5">
+		                <th class="bg-transparent text-light text-uppercase">Id</th>
+		                <th class="bg-transparent text-light text-uppercase">Nombre</th>
+		                <th class="bg-transparent text-light text-uppercase">Apellidos</th>
+		                <th class="bg-transparent text-light text-uppercase">Fecha de Nacimiento</th>
+		                <th class="bg-transparent text-light text-uppercase">DNI</th>
+		                <th class="bg-transparent text-light text-uppercase">Cargo</th>
+						<th class="bg-transparent text-light text-uppercase">Editar</th>
+						<th class="bg-transparent text-light text-uppercase">Borrar</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr th:each="vendedor : ${vendedores} " th:unless="${vendedor.idvendedor == 0}">
+		                <td class="text-light" th:text="${vendedor.idvendedor}"></td>
+		                <td class="text-light" th:text="${vendedor.nombre}"></td>
+		                <td class="text-light" th:text="${vendedor.apellidos}"></td>
+		                <td class="text-light" th:text="${vendedor.fechanacimiento}"></td>
+		                <td class="text-light" th:text="${vendedor.dni}"></td>
+		                <td class="text-light" th:text="${vendedor.cargo}"></td>
+		                <td class="border-top text-light">
+						    <a th:href="@{'/editarVendedor/{id}'(id=${vendedor.idvendedor})}">
+								<span class="d-flex justify-content-center align-items-center ms-2 fa-stack">
+								    <i class="fa-solid fa-pen-to-square link-secondary text-light"></i>
+								</span>
+						    </a>
+						</td>
+						<td class="border-top text-light">
+						    <a th:href="@{'/borrarVendedor/{id}'(id=${vendedor.idvendedor})}">
+								<span class="d-flex justify-content-center align-items-center ms-2 fa-stack">
+								    <i class="fa-solid fa-trash text-danger link-secondary text-light"></i>
+								</span>
+						    </a>
+						</td>
+		            </tr>
+		        </tbody>
+		    </table>
+			</div>
+		</div>
+		<div class="d-flex justify-content-center pb-5">
+		    <a class="col-10 col-md-6 col-lg-4 btn btn-dark text-uppercase" th:href="@{'/addVendedor'}">Añadir nuevo vendedor</a>
+		</div>
 	</div>
     
-	<div th:fragment="coPorMaList (coPorMa)" class="container-flex">
-	    <div class="panel-heading">
-	        <h3>Lista de coches por marca</h3>
+	<div th:fragment="coPorMaList (coPorMa)" class="container-flex bg-image" 
+	style="min-height: 35em;background-image: url('https://img.freepik.com/foto-gratis/vendedor-mujer-busca-automovil-sala-exposicion-automoviles_1303-13644.jpg?t=st=1738088148~exp=1738091748~hmac=c8bffdc847a1a98453eefefb880ad45dce9729514ec9af0ae9c20d708da796fc&w=996');background-size:cover;">
+		<div class="panel-heading p-3">
+	        <div class="col-12 h1 d-flex justify-content-center text-uppercase text-center text-light" style="filter: drop-shadow(0px 2px 2px #000000);">Lista de coches por marca</div>
 	    </div>
-	    <table class="table table-striped">
-	        <thead>
-	            <tr>
-	                <th>ID</th>
-	                <th>Modelo</th>
-	                <th>Marca</th>
-	                <th>Año de Fabricación</th>
-	                <th>Precio</th>
-	                <th>Moneda</th>
-	                <th>Vendido por</th>
-	                <th>Cargo</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr th:each="item : ${coPorMa}">
-	                <td th:text="${item.idcoche}"></td>
-	                <td th:text="${item.modelo}"></td>
-	                <td th:text="${item.nombremarca}"></td>
-	                <td th:text="${item.anyofabricacion}"></td>
-	                <td th:text="${item.precio}"></td>
-	                <td th:text="${item.moneda}"></td>
-	                <td th:text="${item.nombre + ' ' + item.apellidos}"></td>
-	                <td th:text="${item.cargo}"></td>
-	            </tr>
-	        </tbody>
-	    </table>
+		<div class="d-flex justify-content-center">
+			<div class="col-12 col-md-10">
+			    <table class="table table-striped shadow-sm p-3 mb-4 rounded-3" style="--bs-table-bg: #000000d1;">
+			        <thead class="" style="background-color: var(--bs-table-bg);">
+			            <tr class="col rounded-5">
+			                <th class="bg-transparent text-light text-uppercase">ID</th>
+			                <th class="bg-transparent text-light text-uppercase">Modelo</th>
+			                <th class="bg-transparent text-light text-uppercase">Marca</th>
+			                <th class="bg-transparent text-light text-uppercase">Año de Fabricación</th>
+			                <th class="bg-transparent text-light text-uppercase">Precio</th>
+			                <th class="bg-transparent text-light text-uppercase">Moneda</th>
+			                <th class="bg-transparent text-light text-uppercase">Vendido por</th>
+			                <th class="bg-transparent text-light text-uppercase">Cargo</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <tr th:each="item : ${coPorMa}">
+			                <td class="text-light" th:text="${item.idcoche}"></td>
+			                <td class="text-light" th:text="${item.modelo}"></td>
+			                <td class="text-light" th:text="${item.nombremarca}"></td>
+			                <td class="text-light" th:text="${item.anyofabricacion}"></td>
+			                <td class="text-light" th:text="${item.precio}"></td>
+			                <td class="text-light" th:text="${item.moneda}"></td>
+			                <td class="text-light" th:text="${item.nombre + ' ' + item.apellidos}"></td>
+			                <td class="text-light" th:text="${item.cargo}"></td>
+			            </tr>
+			        </tbody>
+			    </table>
+			</div>
+		</div>
 	</div>
     
-    <div th:fragment="buttons (type)" class="form-group">
-        <button th:if="${type == 'modify'}" type="submit" class="btn btn-dark">Modificar</button>
-        <a th:if="${type == 'modify'}" href="/" class="btn btn-primary">Volver</a>
+    <div th:fragment="buttons (type)" class="col-12 d-flex form-group">
+        <button th:if="${type == 'modify'}" type="submit" class="col-6 btn btn-dark rounded-0">Modificar</button>
+        <a th:if="${type == 'modify'}" href="/" class="col-6 btn btn-primary rounded-0">Volver</a>
         
-        <button th:if="${type == 'modifyMarca'}" type="submit" class="btn btn-dark">Modificar</button>
-        <a th:if="${type == 'modifyMarca'}" href="/marcas" class="btn btn-primary">Volver</a>
+        <button th:if="${type == 'modifyMarca'}" type="submit" class="col-6 btn btn-dark rounded-0">Modificar</button>
+        <a th:if="${type == 'modifyMarca'}" href="/marcas" class="col-6 btn btn-primary rounded-0">Volver</a>
 
-		<button th:if="${type == 'modifyVendedor'}" type="submit" class="btn btn-dark">Modificar</button>
-		<a th:if="${type == 'modifyVendedor'}" href="/vendedores" class="btn btn-primary">Volver</a>
+		<button th:if="${type == 'modifyVendedor'}" type="submit" class="col-6 btn btn-dark rounded-0">Modificar</button>
+		<a th:if="${type == 'modifyVendedor'}" href="/vendedores" class="col-6 btn btn-primary rounded-0">Volver</a>
         
-        <button th:if="${type == 'add'}" type="submit" class="btn btn-success">Añadir</button>
-        <a th:if="${type == 'add'}" href="/" class="btn btn-dark">Volver</a>
+        <button th:if="${type == 'add'}" type="submit" class="col-6 btn btn-success rounded-0">Añadir</button>
+        <a th:if="${type == 'add'}" href="/" class="col-6 btn btn-dark rounded-0">Volver</a>
         
-        <button th:if="${type == 'addMarca'}" type="submit" class="btn btn-success">Añadir</button>
-        <a th:if="${type == 'addMarca'}" href="/marcas" class="btn btn-dark">Volver</a>
+        <button th:if="${type == 'addMarca'}" type="submit" class="col-6 btn btn-success rounded-0">Añadir</button>
+        <a th:if="${type == 'addMarca'}" href="/marcas" class="col-6 btn btn-dark rounded-0">Volver</a>
 
-		<button th:if="${type == 'addVendedor'}" type="submit" class="btn btn-success">Añadir</button>
-		<a th:if="${type == 'addVendedor'}" href="/vendedores" class="btn btn-dark">Volver</a>
+		<button th:if="${type == 'addVendedor'}" type="submit" class="col-6 btn btn-success rounded-0">Añadir</button>
+		<a th:if="${type == 'addVendedor'}" href="/vendedores" class="col-6 btn btn-dark rounded-0">Volver</a>
     </div>
     
     <footer th:fragment="footer">
-	    <div class="col-12 text-center text-white p-2 bg-dark mt-2 fixed-bottom">
+	    <div class="col-12 text-center text-white p-2 bg-dark">
 		    <div class="container d-flex justify-content-center p-3">
 		      <button type="button" class="btn btn-lg btn-floating mx-2" style="background-color: #54456b;">
 		        <i class="fab fa-facebook-f text-light"></i>

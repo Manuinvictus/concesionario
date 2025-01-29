@@ -2,68 +2,72 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:insert="~{fragments/fragments.html :: headerfiles(title='Registrar coche  : :  Concesionario')}">
 </head>
-<body>
+<body style="background: rgb(189,179,249);background: linear-gradient(180deg, rgba(189,179,249,1) 0%, rgba(171,221,240,1) 100%);">
 	<div th:insert="~{fragments/fragments.html :: header (page='coches')}"></div>
-    <div class="container">
-        <div class="page-header">
-            <h1>Matriculación nuevo coche</h1>
-        </div>
-        <form action="#" th:action="@{/crear}" th:object="${coche}" method="post" class="align-self-center">
-			<div class="form-group">
-                <label for="modelo" class="col-sm-2 control-label">Modelo</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{modelo}" id="modelo" required="required" />
-                    <p th:if="${#fields.hasErrors('modelo')}" th:errors="${modelo}" class="alert alert-danger" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="idmarca" class="col-sm-2 control-label">Marca</label>
-                <div class="col-sm-10">
-				    <select id="idmarca" class="form-control" name="idmarca" th:field="*{idmarca}">
-				        <option class="form-control" th:each="marca : ${marcas}" th:value="${marca.idmarca}" th:text="${marca.nombremarca}"></option>
-				    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="anyofabricacion" class="col-sm-2 control-label">Año de fabricación</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" th:field="*{anyofabricacion}" id="anyofabricacion" required="required" />
-                    <p th:if="${#fields.hasErrors('anyofabricacion')}" th:errors="${anyofabricacion}" class="alert alert-danger" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                	<label for="matriculationdate" class="col-sm-2 control-label">Precio</label>
-                </div>
-                <div class="row">
-	                <div class="col-sm-5">
-	                    <input type="number" class="form-control" th:field="*{precio}" id="precio" placeholder="500" required="required" />
-	                    <p th:if="${#fields.hasErrors('precio')}" th:errors="${precio}" class="alert alert-danger" />
-	                </div>
-	                <div class="col-sm-5">
-	                	<select class="form-control" id="moneda" required="required" th:field="*{moneda}">
-	                    	<option value="EUR">Euros</option>
-	                    	<option value="GBP">Libras</option>
-	                    	<option value="USD">Dolares</option>
-	                    	<option value="RON">Leus</option>
-	                    	<option value="RUB">Rublos</option>
-	                    	<option value="SEK">Coronas</option>
-	                    </select>
-	                    <p th:if="${#fields.hasErrors('moneda')}" th:errors="${moneda}" class="alert alert-danger" />
-	                </div>
-            	</div>
-            </div>
-            <div class="form-group mb-2">
-				<label for="idvendedor" class="col-sm-2 control-label">Vendido por</label>
-				<div class="col-sm-10">
-				    <select id="idvendedor" class="form-control" name="idvendedor" th:field="*{idvendedor}">
-				        <option class="form-control" th:each="vendedor : ${vendedores}" th:value="${vendedor.idvendedor}" th:text="${vendedor.nombre + ' ' + vendedor.apellidos}"></option>
-				    </select>
-				</div>
-            </div>
-            <div th:insert="~{fragments/fragments.html :: buttons(type='add')}">
-            </div>
-        </form>
+    <div class="container mt-2 pt-2 pb-5" style="min-height: 32.5em;">
+		<div class="page-header p-3">
+			<div class="col-12 h1 d-flex justify-content-center text-uppercase text-center text-light" style="filter: drop-shadow(0px 2px 2px #000000);">Matriculación nuevo coche</div>
+		</div>
+		<div class="row d-flex justify-content-center mt-4">
+			<div class="col-12 col-md-10 col-lg-8 d-flex flex-column justify-content-center p-3 pt-2 bg-black bg-gradient rounded-5 shadow-sm">
+		        <form action="#" th:action="@{/crear}" th:object="${coche}" method="post" class="row p-3">
+					<div class="col-12 form-group mb-3">
+		                <label for="modelo" class="col-sm-2 mb-1 control-label fs-4 text-light">Modelo</label>
+		                <div class="">
+		                    <input type="text" class="form-control bg-transparent text-light rounded-0" th:field="*{modelo}" id="modelo" required="required" />
+		                    <p th:if="${#fields.hasErrors('modelo')}" th:errors="${modelo}" class="alert alert-danger" />
+		                </div>
+		            </div>
+		            <div class="col-12 form-group mb-3">
+		                <label for="idmarca" class="col-sm-5 mb-1 control-label fs-4 text-light">Marca</label>
+		                <div class="">
+						    <select id="idmarca" class="form-control bg-transparent text-light rounded-0" name="idmarca" th:field="*{idmarca}">
+						        <option class="form-control" th:each="marca : ${marcas}" th:value="${marca.idmarca}" th:text="${marca.nombremarca}"></option>
+						    </select>
+		                </div>
+		            </div>
+		            <div class="col-12 form-group mb-3">
+		                <label for="anyofabricacion" class="col-sm-5 mb-1 control-label fs-4 text-light">Año de fabricación</label>
+		                <div class="">
+		                    <input type="number" class="form-control bg-transparent text-light rounded-0" th:field="*{anyofabricacion}" id="anyofabricacion" required="required" />
+		                    <p th:if="${#fields.hasErrors('anyofabricacion')}" th:errors="${anyofabricacion}" class="alert alert-danger" />
+		                </div>
+		            </div>
+		            <div class="col-12 form-group mb-3">
+		                <div class="row">
+		                	<label for="matriculationdate" class="col-sm-5 mb-1 control-label fs-4 text-light">Precio</label>
+		                </div>
+		                <div class="row">
+			                <div class="col-6">
+			                    <input type="number" class="form-control bg-transparent text-light rounded-0" th:field="*{precio}" id="precio" placeholder="500" required="required" />
+			                    <p th:if="${#fields.hasErrors('precio')}" th:errors="${precio}" class="alert alert-danger" />
+			                </div>
+			                <div class="col-6">
+			                	<select class="form-control bg-transparent text-light rounded-0" id="moneda" required="required" th:field="*{moneda}">
+			                    	<option class="text-dark" value="EUR">Euros</option>
+			                    	<option class="text-dark" value="GBP">Libras</option>
+			                    	<option class="text-dark" value="USD">Dolares</option>
+			                    	<option class="text-dark" value="RON">Leus</option>
+			                    	<option class="text-dark" value="RUB">Rublos</option>
+			                    	<option class="text-dark" value="SEK">Coronas</option>
+			                    </select>
+			                    <p th:if="${#fields.hasErrors('moneda')}" th:errors="${moneda}" class="alert alert-danger" />
+			                </div>
+		            	</div>
+		            </div>
+		            <div class="col-12 form-group mb-3">
+						<label for="idvendedor" class="col-sm-5 mb-1 control-label fs-4 text-light">Vendido por</label>
+						<div class="">
+						    <select id="idvendedor" class="form-control bg-transparent text-light rounded-0" name="idvendedor" th:field="*{idvendedor}">
+						        <option class="form-control" th:each="vendedor : ${vendedores}" th:value="${vendedor.idvendedor}" th:text="${vendedor.nombre + ' ' + vendedor.apellidos}"></option>
+						    </select>
+						</div>
+		            </div>
+		            <div th:insert="~{fragments/fragments.html :: buttons(type='add')}">
+		            </div>
+		        </form>
+			</div>
+		</div>
     </div>
     <footer th:insert="~{fragments/fragments.html :: footer}">
     </footer>

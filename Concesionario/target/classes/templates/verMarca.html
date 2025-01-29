@@ -2,18 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:insert="~{fragments/fragments.html :: headerfiles(title='Ver Marca :: Concesionario')}">
 </head>
-<body>
+<body style="background: rgb(198,197,213);background: linear-gradient(180deg, rgba(198,197,213,1) 0%, rgba(184,221,228,1) 100%);">
     <div th:insert="~{fragments/fragments.html :: header (page='marcas')}"></div>
-    <div class="container">
-        <div class="page-header mt-2">
-            <h1 th:text="*{marca.nombremarca}"></h1>
-        </div>
-        <div class="mt-4">
-            <h5>Detalles de la marca:</h5>
-            <ul>
-                <li><strong>Fundación:</strong> <span th:text="${marca.fundacion}"></span></li>
-                <li><strong>Patrimonio:</strong> <span th:text="${marca.patrimonio}"></span> <span th:text="${marca.moneda}"></span></li>
-            </ul>
+    <div class="container mt-2 pt-5" style="min-height: 34em;">
+		<div class="page-header mt-2 p-3 pt-5">
+		    <div class="col-12 h1 d-flex justify-content-center text-uppercase text-center text-light" style="filter: drop-shadow(0px 2px 2px #000000);" th:text="*{marca.nombremarca}"></div>
+		</div>
+        <div class="row d-flex justify-content-center mt-4">
+			<div class="col-12 col-md-8 col-lg-5 d-flex flex-column justify-content-center p-3 bg-dark bg-gradient rounded-4 shadow-sm">
+				<div class="col-10 panel-heading p-3">
+			        <div class="col-12 h2 d-flex justify-content-center text-uppercase text-center text-light" style="filter: drop-shadow(0px 2px 2px #000000);">Detalles de la marca</div>
+			    </div>
+				<div class="col-10">
+					<ul>
+					    <li class="text-light"><strong>Fundación:</strong> <span th:text="${marca.fundacion}"></span></li>
+					    <li class="text-light"><strong>Patrimonio:</strong> <span th:text="${marca.patrimonio}"></span> <span th:text="${marca.moneda}"></span></li>
+					</ul>
+				</div>
+			</div>
         </div>
     </div>
     <footer th:insert="~{fragments/fragments.html :: footer}"></footer>

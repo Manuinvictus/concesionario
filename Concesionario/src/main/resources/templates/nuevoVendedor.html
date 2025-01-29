@@ -2,51 +2,55 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:insert="~{fragments/fragments.html :: headerfiles(title='Agregar vendedores  : :  Concesionario')}">
 </head>
-<body>
+<body style="background: rgb(189,179,249);background: linear-gradient(180deg, rgba(189,179,249,1) 0%, rgba(171,221,240,1) 100%);">
 	<div th:insert="~{fragments/fragments.html :: header (page='vendedores')}"></div>
-    <div class="container">
-        <div class="page-header">
-            <h1>Nuevo vendedor</h1>
+    <div class="container mt-2 pt-2 pb-5" style="min-height: 32.5em;">
+        <div class="page-header p-3">
+            <div class="col-12 h1 d-flex justify-content-center text-uppercase text-center text-light" style="filter: drop-shadow(0px 2px 2px #000000);">Nuevo vendedor</div>
         </div>
-        <form action="#" th:action="@{/crearVendedor}" th:object="${vendedor}" method="post" class="align-self-center">
-			<div class="form-group">
-                <label for="nombre" class="col-sm-2 control-label">Nombre:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{nombre}" id="nombre" required="required" />
-                    <p th:if="${#fields.hasErrors('nombre')}" th:errors="${nombre}" class="alert alert-danger" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="apellidos" class="col-sm-2 control-label">Apellidos:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{apellidos}" id="apellidos" required="required" />
-                    <p th:if="${#fields.hasErrors('apellidos')}" th:errors="${apellidos}" class="alert alert-danger" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="fechanacimiento" class="col-sm-2 control-label">Fecha de nacimiento:</label>
-                <div class="col-sm-10">
-                    <input type="date" class="form-control" th:field="*{fechanacimiento}" id="fechanacimiento" required="required" />
-                    <p th:if="${#fields.hasErrors('fechanacimiento')}" th:errors="${fechanacimiento}" class="alert alert-danger" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="dni" class="col-sm-2 control-label">DNI</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{dni}" id="dni" required="required" />
-                    <p th:if="${#fields.hasErrors('dni')}" th:errors="${dni}" class="alert alert-danger" />
-                </div>
-            </div>
-            <div class="form-group mb-2">
-                <label for="cargo" class="col-sm-2 control-label">Cargo:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{cargo}" id="cargo" required="required" />
-                    <p th:if="${#fields.hasErrors('cargo')}" th:errors="${cargo}" class="alert alert-danger" />
-                </div>
-            </div>
-            <div th:insert="~{fragments/fragments.html :: buttons(type='addVendedor')}">
-            </div>
-        </form>
+		<div class="row d-flex justify-content-center mt-4">
+			<div class="col-12 col-md-10 col-lg-8 d-flex flex-column justify-content-center p-3 pt-2 bg-black bg-gradient rounded-5 shadow-sm">
+		        <form action="#" th:action="@{/crearVendedor}" th:object="${vendedor}" method="post" class="row p-3">
+					<div class="col-12 form-group mb-3">
+		                <label for="nombre" class="col-sm-2 mb-1 control-label fs-4 text-light">Nombre:</label>
+		                <div class="">
+		                    <input type="text" class="form-control bg-transparent text-light rounded-0" th:field="*{nombre}" id="nombre" required="required" />
+		                    <p th:if="${#fields.hasErrors('nombre')}" th:errors="${nombre}" class="alert alert-danger" />
+		                </div>
+		            </div>
+		            <div class="col-12 form-group mb-3">
+		                <label for="apellidos" class="col-sm-2 mb-1 control-label fs-4 text-light">Apellidos:</label>
+		                <div class="">
+		                    <input type="text" class="form-control bg-transparent text-light rounded-0" th:field="*{apellidos}" id="apellidos" required="required" />
+		                    <p th:if="${#fields.hasErrors('apellidos')}" th:errors="${apellidos}" class="alert alert-danger" />
+		                </div>
+		            </div>
+		            <div class="col-12 form-group mb-3">
+		                <label for="fechanacimiento" class="col-sm-10 mb-1 control-label fs-4 text-light">Fecha de nacimiento:</label>
+		                <div class="">
+		                    <input type="date" class="form-control bg-transparent text-light rounded-0" th:field="*{fechanacimiento}" id="fechanacimiento" required="required" />
+		                    <p th:if="${#fields.hasErrors('fechanacimiento')}" th:errors="${fechanacimiento}" class="alert alert-danger" />
+		                </div>
+		            </div>
+		            <div class="col-12 form-group mb-3">
+		                <label for="dni" class="col-sm-2 mb-1 control-label fs-4 text-light">DNI</label>
+		                <div class="">
+		                    <input type="text" class="form-control bg-transparent text-light rounded-0" th:field="*{dni}" id="dni" required="required" />
+		                    <p th:if="${#fields.hasErrors('dni')}" th:errors="${dni}" class="alert alert-danger" />
+		                </div>
+		            </div>
+		            <div class="col-12 form-group mb-3">
+		                <label for="cargo" class="col-sm-2 mb-1 control-label fs-4 text-light">Cargo:</label>
+		                <div class="">
+		                    <input type="text" class="form-control bg-transparent text-light rounded-0" th:field="*{cargo}" id="cargo" required="required" />
+		                    <p th:if="${#fields.hasErrors('cargo')}" th:errors="${cargo}" class="alert alert-danger" />
+		                </div>
+		            </div>
+		            <div th:insert="~{fragments/fragments.html :: buttons(type='addVendedor')}">
+		            </div>
+		        </form>
+			</div>
+		</div>
     </div>
     <footer th:insert="~{fragments/fragments.html :: footer}">
     </footer>

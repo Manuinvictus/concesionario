@@ -77,9 +77,9 @@ public class ConcesionarioController {
     }
     
     @GetMapping("/verVendedor/{id}")
-    public String verHechizo(@PathVariable long id, Model model){
+    public String verVendedor(@PathVariable long id, Model model){
     	Optional<Vendedor> v = vr.findById(id);
-    	model.addAttribute("spell", v.get());
+    	model.addAttribute("vendedor", v.get());
         return "verVendedor";
     }
     
